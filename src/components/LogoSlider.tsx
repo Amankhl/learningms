@@ -17,7 +17,7 @@ const InfiniteLogoSlider = () => {
     return (
       <div className="w-full max-md:hidden overflow-hidden bg-white py-8">
         <h2 className="text-3xl font-bold text-center mb-8">
-          We collaborate with <span className="text-blue-600">350+ leading universities and companies</span>
+          We collaborate with <span className="text-blue-600">350+ mentors and teachers</span>
         </h2>
   
         <div className="relative w-full overflow-hidden">
