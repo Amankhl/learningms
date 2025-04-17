@@ -20,3 +20,7 @@ export function getUserFromServer(): UserPayload | null {
     return null;
   }
 }
+
+export async function deleteSession() {
+  cookies().delete("lms-token");
+}

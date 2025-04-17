@@ -3,13 +3,6 @@ import { neon } from "@neondatabase/serverless";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken"
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
-
-export async function getData() {
-    const sql = neon(process.env.DATABASE_URL!);
-    const data = await sql`SELECT * FROM "User"`;
-    return data;
-}
 
 export async function login({ email, password }: { email: string, password: string }) {
     try {
@@ -80,7 +73,7 @@ export async function register({
         INSERT INTO "User" (name, email, password, role)
         VALUES (${name}, ${email}, ${hashedPassword}, ${role}::"Role")`;
   
-      console.log("User registered: ", newUser);
+      // console.log("User registered: ", newUser);
   
       return {
         success: true,

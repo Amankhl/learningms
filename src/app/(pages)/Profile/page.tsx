@@ -1,11 +1,13 @@
 'use client'
-import React from 'react';
+import React, { useTransition } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from '@/components/ui/chart';
 import { CartesianGrid, LabelList, Line, LineChart, XAxis } from 'recharts';
 import { TrendingUp } from 'lucide-react';
+import { useProfile } from '@/context/ProfileContext';
+import { useRouter } from 'next/navigation';
 
 const chartData = [
   { month: 'January', hours: 266, streak: 10 },
@@ -40,11 +42,33 @@ const userData = {
 };
 
 const Profile = () => {
+
+  const { user,logout } = useProfile();
+  const router = useRouter()
+  const [isPending, startTransition] = useTransition();
+
+  if (!user) {
+    router.push('/Login')
+  }
+
   return (
     <div className="min-h-screen bg-white text-black p-8">
       <Card>
         <CardHeader>
-          <CardTitle>Your Profile</CardTitle>
+          <div className='w-full flex justify-between'>
+            <CardTitle>Your Profile</CardTitle>
+            <Button
+              disabled={isPending}
+              onClick={() => {
+                startTransition(async () => {
+                  await logout();
+                  router.push("/Login");
+                });
+              }}
+            >
+              {isPending ? "Logging out..." : "Logout"}
+            </Button>
+          </div>
         </CardHeader>
         <CardContent>
           <div className="flex items-center gap-6">
@@ -74,61 +98,61 @@ const Profile = () => {
       </Card>
 
       <div className='grid grid-cols-1 md:grid-cols-3 gap-6 mt-4'>
-        
-      <Card>
-      <CardHeader>
-        <CardTitle>Total Learning Hours</CardTitle>
-        <p>Track your learning progress and streaks over the last 6 months</p>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          <LineChart
-            accessibilityLayer
-            data={chartData}
-            margin={{ top: 20, left: 12, right: 12 }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="line" />}
-            />
-            <Line
-              dataKey="hours"
-              type="natural"
-              stroke="var(--color-desktop)"
-              strokeWidth={2}
-              dot={{
-                fill: "var(--color-desktop)",
-              }}
-              activeDot={{ r: 6 }}
-            >
-              <LabelList
-                dataKey="streak"
-                position="top"
-                offset={12}
-                className="fill-foreground"
-                fontSize={12}
-              />
-            </Line>
-          </LineChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Displaying learning hours and streaks for the last 6 months
-        </div>
-      </CardFooter>
-    </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Total Learning Hours</CardTitle>
+            <p>Track your learning progress and streaks over the last 6 months</p>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer config={chartConfig}>
+              <LineChart
+                accessibilityLayer
+                data={chartData}
+                margin={{ top: 20, left: 12, right: 12 }}
+              >
+                <CartesianGrid vertical={false} />
+                <XAxis
+                  dataKey="month"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  tickFormatter={(value) => value.slice(0, 3)}
+                />
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent indicator="line" />}
+                />
+                <Line
+                  dataKey="hours"
+                  type="natural"
+                  stroke="var(--color-desktop)"
+                  strokeWidth={2}
+                  dot={{
+                    fill: "var(--color-desktop)",
+                  }}
+                  activeDot={{ r: 6 }}
+                >
+                  <LabelList
+                    dataKey="streak"
+                    position="top"
+                    offset={12}
+                    className="fill-foreground"
+                    fontSize={12}
+                  />
+                </Line>
+              </LineChart>
+            </ChartContainer>
+          </CardContent>
+          <CardFooter className="flex-col items-start gap-2 text-sm">
+            <div className="flex gap-2 font-medium leading-none">
+              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+            </div>
+            <div className="leading-none text-muted-foreground">
+              Displaying learning hours and streaks for the last 6 months
+            </div>
+          </CardFooter>
+        </Card>
       </div>
     </div>
   );

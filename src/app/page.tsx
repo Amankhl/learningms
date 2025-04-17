@@ -1,18 +1,16 @@
 'use client'
-import React, { useContext } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import hero from '../public/hero.jpg'
 import Courses from '@/components/Courses';
 import Link from 'next/link';
 import InfiniteLogoSlider from '@/components/LogoSlider';
-import { ProfileContext } from '@/context/ProfileContext';
+import { useProfile } from '@/context/ProfileContext';
 
 const HomePage = () => {
 
-  const decoded = useContext(ProfileContext)
-
-  console.log('decoded:', decoded)
-
+  const user = useProfile();
+  console.log(user)
 
   return (
     <div className="w-full">

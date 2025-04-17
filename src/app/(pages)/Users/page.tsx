@@ -1,22 +1,30 @@
 'use client'
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useRouter } from "next/navigation";
-
-const users = [
-  { id: 1, name: "Aman Khowal", email: "aman@example.com", joined: "2024-01-15", courses: 5 },
-  { id: 2, name: "Ali Haider", email: "ali@example.com", joined: "2024-02-20", courses: 3 },
-  { id: 3, name: "Ayush", email: "ayush@example.com", joined: "2024-03-05", courses: 7 },
-];
+import { assignRole, getData, User } from "@/actions/users";
 
 const Users = () => {
   const router = useRouter();
+  const [users, setUsers] = useState<User[]>([])
+  const [selectedRoles, setSelectedRoles] = useState<{ [userId: number]: 'STUDENT' | 'EDUCATOR' | 'ADMIN' }>({});
 
   const handleViewDetails = (id: number) => {
     router.push(`/users/${id}`);
   };
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getData();
+      console.log(data)
+      setUsers(data)
+    }
+    fetchData()
+  }, [])
+
 
   return (
     <Card className="rounded-none border-none shadow-none h-screen">
@@ -29,9 +37,9 @@ const Users = () => {
             <TableRow>
               <TableHead>Name</TableHead>
               <TableHead>Email</TableHead>
-              <TableHead>Date of Joining</TableHead>
               <TableHead>Courses Enrolled</TableHead>
               <TableHead>Actions</TableHead>
+              <TableHead>Assign Role</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -39,7 +47,6 @@ const Users = () => {
               <TableRow key={user.id}>
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
-                <TableCell>{user.joined}</TableCell>
                 <TableCell>
                   <button
                     onClick={() => handleViewDetails(user.id)}
@@ -51,6 +58,42 @@ const Users = () => {
                 <TableCell>
                   <Button onClick={() => handleViewDetails(user.id)}>View Details</Button>
                 </TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-2">
+                      <select
+                        value={selectedRoles[user.id] ?? user.role}
+                        onChange={(e) => {
+                          const newRole = e.target.value as 'STUDENT' | 'EDUCATOR' | 'ADMIN';
+                          setSelectedRoles(prev => ({ ...prev, [user.id]: newRole }));
+                        }}
+                        className="border rounded px-2 py-1"
+                      >
+                        <option value="STUDENT">Student</option>
+                        <option value="EDUCATOR">Educator</option>
+                        <option value="ADMIN">Admin</option>
+                      </select>
+
+                      {selectedRoles[user.id] && selectedRoles[user.id] !== user.role && (
+                        <Button
+                          variant="outline"
+                          onClick={async () => {
+                            const newRole = selectedRoles[user.id];
+                            const res = await assignRole(user.id, newRole);
+                            if (res.success) {
+                              const updated = await getData();
+                              setUsers(updated);
+                              setSelectedRoles(prev => {
+                                const { [user.id]: _, ...rest } = prev;
+                                return rest;
+                              });
+                            }
+                          }}
+                        >
+                          Confirm
+                        </Button>
+                      )}
+                    </div>
+                  </TableCell>
               </TableRow>
             ))}
           </TableBody>

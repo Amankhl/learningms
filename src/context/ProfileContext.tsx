@@ -7,6 +7,14 @@ export interface UserPayload {
   email: string;
   role: string;
 }
+export interface ProfileContextType {
+  user: UserPayload | null;
+  logout: () => void;
+}
 
-export const ProfileContext = createContext<UserPayload | null>(null)
-export const useProfile = () => useContext(ProfileContext)
+const defaultContext: ProfileContextType = {
+  user: null,
+  logout: () => {},
+};
+export const ProfileContext = createContext<ProfileContextType>(defaultContext);
+export const useProfile = () => useContext(ProfileContext);

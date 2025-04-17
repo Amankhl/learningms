@@ -4,7 +4,6 @@ import { LuMessageSquareMore } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
 import { SidebarTrigger } from './ui/sidebar';
 import Link from 'next/link';
-import { cookies } from 'next/headers';
 
 const Navbar = () => {
   
@@ -18,7 +17,7 @@ const Navbar = () => {
 
       <div className='flex gap-4 max-sm:gap-2 h-[100%] items-center text-white'>
         <LuMessageSquareMore className='text-[1.7rem] max-sm:text-[1.5rem]' />
-        <Link href={'/Login'}><CgProfile className='text-[1.7rem] max-sm:text-[1.4rem]' /></Link> 
+        <Link href={'/Profile'}><CgProfile className='text-[1.7rem] max-sm:text-[1.4rem]' /></Link> 
       </div>
     </header>
   )

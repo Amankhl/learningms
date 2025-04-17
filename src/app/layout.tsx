@@ -4,7 +4,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/AppSidebar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { getUserFromServer } from "@/actions/profile";
+import { deleteSession, getUserFromServer } from "@/actions/profile";
 import ProfileProvider from "@/context/ProfileProvider";
 
 export const metadata: Metadata = {
@@ -17,13 +17,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
   const user = getUserFromServer();
+  const logout = async () => {
+    "use server";
+    await deleteSession();
+  };
+
   return (
     <html lang="en">
       <body
         className=' antialiased min-w-full'
       >
-    <ProfileProvider user={user}>
+    <ProfileProvider user={user} logout={logout}>
     <SidebarProvider>
       <AppSidebar />
       <main className="flex-1">
