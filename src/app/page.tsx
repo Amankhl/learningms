@@ -1,11 +1,19 @@
-import React from 'react';
+'use client'
+import React, { useContext } from 'react';
 import { Button } from '@/components/ui/button';
 import hero from '../public/hero.jpg'
 import Courses from '@/components/Courses';
 import Link from 'next/link';
 import InfiniteLogoSlider from '@/components/LogoSlider';
+import { ProfileContext } from '@/context/ProfileContext';
 
 const HomePage = () => {
+
+  const decoded = useContext(ProfileContext)
+
+  console.log('decoded:', decoded)
+
+
   return (
     <div className="w-full">
       {/* Hero Section */}

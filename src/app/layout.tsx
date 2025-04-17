@@ -4,6 +4,8 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/AppSidebar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getUserFromServer } from "@/actions/profile";
+import ProfileProvider from "@/context/ProfileProvider";
 
 export const metadata: Metadata = {
   title: "LMS",
@@ -15,11 +17,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = getUserFromServer();
   return (
     <html lang="en">
       <body
         className=' antialiased min-w-full'
       >
+    <ProfileProvider user={user}>
     <SidebarProvider>
       <AppSidebar />
       <main className="flex-1">
@@ -28,6 +32,7 @@ export default function RootLayout({
         <Footer />
       </main>
     </SidebarProvider>
+    </ProfileProvider>
       </body>
     </html>
   );
