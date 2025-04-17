@@ -1,5 +1,5 @@
 'use client'
-import React, { useTransition } from 'react';
+import React, { useEffect, useState, useTransition } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -8,6 +8,8 @@ import { CartesianGrid, LabelList, Line, LineChart, XAxis } from 'recharts';
 import { TrendingUp } from 'lucide-react';
 import { useProfile } from '@/context/ProfileContext';
 import { useRouter } from 'next/navigation';
+import { profileDetails, User } from '@/actions/users';
+import { EnrolledCourse, getEnrolledCourses } from '@/actions/courses';
 
 const chartData = [
   { month: 'January', hours: 266, streak: 10 },
@@ -26,7 +28,6 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 
-
 const userData = {
   name: 'Ayush Nigam',
   username: 'ayush',
@@ -38,18 +39,39 @@ const userData = {
     { id: 3, title: 'Database Management' },
   ],
   role: 'Student',
-  joinedDate: 'January 15, 2024',
+  joinedDate: 'April 6, 2025',
 };
 
 const Profile = () => {
 
-  const { user,logout } = useProfile();
+  const { user, logout } = useProfile();
   const router = useRouter()
   const [isPending, startTransition] = useTransition();
+  const [me, setMe] = useState<User | any>(null)
+  const [courses, setCourses] = useState<EnrolledCourse[]>([])
 
   if (!user) {
     router.push('/Login')
   }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await profileDetails();
+      if (data && data.length > 0) {
+        setMe(data[0]);
+      } else {
+        setMe(null);
+      }
+    };
+    const fetchCourses = async () => {
+      const result = await getEnrolledCourses()
+      setCourses(result)
+    }
+    fetchCourses()
+    fetchData()
+  }, []);
+
+  console.log(courses)
 
   return (
     <div className="min-h-screen bg-white text-black p-8">
@@ -73,26 +95,31 @@ const Profile = () => {
         <CardContent>
           <div className="flex items-center gap-6">
             <Avatar className="w-24 h-24">
-              <AvatarImage src={userData.image} alt={userData.name} />
-              <AvatarFallback>{userData.name[0]}</AvatarFallback>
+              <AvatarImage src={userData.image} alt={me?.name || 'User'} />
+              <AvatarFallback>{userData.name}</AvatarFallback>
             </Avatar>
             <div>
-              <h2 className="text-2xl font-bold">{userData.name}</h2>
-              <p className="text-gray-600">@{userData.username}</p>
-              <p className="text-gray-600">{userData.email}</p>
-              <p className="text-gray-600">Role: {userData.role}</p>
+              <h2 className="text-2xl font-bold">{me?.name}</h2>
+              <p className="text-gray-600">@{me?.name}</p>
+              <p className="text-gray-600">{me?.email}</p>
+              <p className="text-gray-600">Role: {me?.role}</p>
               <p className="text-gray-600">Joined: {userData.joinedDate}</p>
             </div>
           </div>
 
           <h3 className="text-xl font-semibold mt-8">Enrolled Courses</h3>
           <ul className="mt-4 space-y-2">
-            {userData.enrolledCourses.map((course) => (
-              <li key={course.id} className="flex justify-between items-center border-b pb-2">
-                <span>{course.title}</span>
-                <Button variant="link" onClick={() => alert(`Navigating to course ${course.id}`)}>View Course</Button>
-              </li>
-            ))}
+            {courses.length === 0 ? (
+              <p className='text-[#595757]'>You haven't enrolled in any course</p>
+            ) : (
+              courses.map((course) => (
+                <li key={course.id} className="flex justify-between items-center border-b pb-2">
+                  <span>{course.title}</span>
+                  <Button variant="link" onClick={() => alert(`Navigating to course ${course.id}`)}>View Course</Button>
+                </li>
+              ))
+            )}
+
           </ul>
         </CardContent>
       </Card>

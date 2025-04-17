@@ -56,3 +56,23 @@ export async function assignRole(userId: number, newRole: 'STUDENT' | 'EDUCATOR'
         return { success: false, message: "Role assignment failed", error };
     }
 }
+
+
+export async function profileDetails() {
+try {
+    const user = getUserFromServer()
+    const me = user?.id
+    const sql = neon(process.env.DATABASE_URL!);
+    const data = await sql`
+        SELECT 
+          u.id,
+          u.name,
+          u.email,
+          u.role
+        FROM "User" u
+        WHERE u.id = ${me}`
+        return data
+} catch (error) {
+  console.log("profileDetails error: ",error)
+}
+}

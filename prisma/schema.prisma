@@ -22,6 +22,7 @@ model User {
   password  String
   role      Role
   courses   Course[]  @relation("EducatorCourses")
+  enrollments Enrollment[]
 }
 
 enum Role {
@@ -39,4 +40,16 @@ model Course {
   educator    User       @relation("EducatorCourses", fields: [educatorId], references: [id])
   educatorId  Int
   createdAt   DateTime   @default(now())
+  enrollments Enrollment[]
+}
+
+model Enrollment {
+  id        Int     @id @default(autoincrement())
+  user      User    @relation(fields: [userId], references: [id])
+  userId    Int
+  course    Course  @relation(fields: [courseId], references: [id])
+  courseId  Int
+  createdAt DateTime @default(now())
+
+  @@unique([userId, courseId]) // Prevent duplicate enrollments
 }

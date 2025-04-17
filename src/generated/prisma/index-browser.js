@@ -135,6 +135,13 @@ exports.Prisma.CourseScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.EnrollmentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  courseId: 'courseId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -157,7 +164,8 @@ exports.Role = exports.$Enums.Role = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Course: 'Course'
+  Course: 'Course',
+  Enrollment: 'Enrollment'
 };
 
 /**
