@@ -18,7 +18,7 @@ const learn = [
   ];
   const admin = [
     { title: 'Users', url: '/Users', icon: Users },
-    { title: 'Content', url: '/Content', icon: ScrollText },
+    { title: 'Upload Course', url: '/UploadCourses', icon: ScrollText },
     { title: 'Configurations', url: '#', icon: Cog },
   ];
 
@@ -91,7 +91,7 @@ const AppSidebar = () => {
                     )}
   
                     {admin
-                      .filter((item) => isAdmin || item.title === 'Content')
+                      .filter((item) => isAdmin || item.title === 'Upload Course')
                       .map((item) => (
                         <SidebarMenuItem key={item.title}>
                           <SidebarMenuButton asChild>
