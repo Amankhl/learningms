@@ -109,6 +109,15 @@ exports.Prisma.CourseScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ChapterScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  status: 'status',
+  courseId: 'courseId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.EnrollmentScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -142,9 +151,15 @@ exports.CourseStatus = exports.$Enums.CourseStatus = {
   ARCHIVED: 'ARCHIVED'
 };
 
+exports.ChapterStatus = exports.$Enums.ChapterStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Course: 'Course',
+  Chapter: 'Chapter',
   Enrollment: 'Enrollment'
 };
 /**
@@ -196,13 +211,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider        = \"prisma-client-js\"\n  previewFeatures = [\"driverAdapters\"]\n  output          = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id          Int          @id @default(autoincrement())\n  name        String\n  email       String       @unique\n  password    String\n  role        Role\n  courses     Course[]     @relation(\"EducatorCourses\")\n  enrollments Enrollment[]\n}\n\nenum Role {\n  STUDENT\n  EDUCATOR\n  ADMIN\n}\n\nmodel Course {\n  id          Int          @id @default(autoincrement())\n  title       String\n  description String\n  content     String // written content (Markdown/HTML)\n  videoUrl    String?\n  imgUrl      String?\n  status      CourseStatus @default(DRAFT)\n\n  educator    User         @relation(\"EducatorCourses\", fields: [educatorId], references: [id])\n  educatorId  Int\n  createdAt   DateTime     @default(now())\n  enrollments Enrollment[]\n}\n\nenum CourseStatus {\n  DRAFT\n  PUBLISHED\n  ARCHIVED\n}\n\nmodel Enrollment {\n  id        Int      @id @default(autoincrement())\n  user      User     @relation(fields: [userId], references: [id])\n  userId    Int\n  course    Course   @relation(fields: [courseId], references: [id])\n  courseId  Int\n  createdAt DateTime @default(now())\n\n  @@unique([userId, courseId]) // Prevent duplicate enrollments\n}\n",
-  "inlineSchemaHash": "3234a3142b60e5514c346fb50d720ce7248d521317053008042b5b2be4075d23",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider        = \"prisma-client-js\"\n  previewFeatures = [\"driverAdapters\"]\n  output          = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id          Int          @id @default(autoincrement())\n  name        String\n  email       String       @unique\n  password    String\n  role        Role\n  courses     Course[]     @relation(\"EducatorCourses\")\n  enrollments Enrollment[]\n}\n\nenum Role {\n  STUDENT\n  EDUCATOR\n  ADMIN\n}\n\nmodel Course {\n  id          Int          @id @default(autoincrement())\n  title       String\n  description String\n  content     String // written content (Markdown/HTML)\n  videoUrl    String?\n  imgUrl      String?\n  status      CourseStatus @default(DRAFT)\n\n  educator    User         @relation(\"EducatorCourses\", fields: [educatorId], references: [id])\n  educatorId  Int\n  createdAt   DateTime     @default(now())\n  chapters    Chapter[]\n  enrollments Enrollment[]\n}\n\nenum CourseStatus {\n  DRAFT\n  PUBLISHED\n  ARCHIVED\n}\n\nmodel Chapter {\n  id        Int           @id @default(autoincrement())\n  title     String\n  status    ChapterStatus @default(DRAFT)\n  course    Course        @relation(fields: [courseId], references: [id])\n  courseId  Int\n  createdAt DateTime      @default(now())\n  updatedAt DateTime      @updatedAt\n}\n\nenum ChapterStatus {\n  DRAFT\n  PUBLISHED\n}\n\nmodel Enrollment {\n  id        Int      @id @default(autoincrement())\n  user      User     @relation(fields: [userId], references: [id])\n  userId    Int\n  course    Course   @relation(fields: [courseId], references: [id])\n  courseId  Int\n  createdAt DateTime @default(now())\n\n  @@unique([userId, courseId]) // Prevent duplicate enrollments\n}\n",
+  "inlineSchemaHash": "a8898605e57e2176122b013b05bedc0218140d89be4472f1e8d4a60c0cac4fd6",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"courses\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"EducatorCourses\"},{\"name\":\"enrollments\",\"kind\":\"object\",\"type\":\"Enrollment\",\"relationName\":\"EnrollmentToUser\"}],\"dbName\":null},\"Course\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"videoUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"imgUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"CourseStatus\"},{\"name\":\"educator\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"EducatorCourses\"},{\"name\":\"educatorId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"enrollments\",\"kind\":\"object\",\"type\":\"Enrollment\",\"relationName\":\"CourseToEnrollment\"}],\"dbName\":null},\"Enrollment\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"EnrollmentToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"course\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"CourseToEnrollment\"},{\"name\":\"courseId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"courses\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"EducatorCourses\"},{\"name\":\"enrollments\",\"kind\":\"object\",\"type\":\"Enrollment\",\"relationName\":\"EnrollmentToUser\"}],\"dbName\":null},\"Course\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"videoUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"imgUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"CourseStatus\"},{\"name\":\"educator\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"EducatorCourses\"},{\"name\":\"educatorId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"chapters\",\"kind\":\"object\",\"type\":\"Chapter\",\"relationName\":\"ChapterToCourse\"},{\"name\":\"enrollments\",\"kind\":\"object\",\"type\":\"Enrollment\",\"relationName\":\"CourseToEnrollment\"}],\"dbName\":null},\"Chapter\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"ChapterStatus\"},{\"name\":\"course\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"ChapterToCourse\"},{\"name\":\"courseId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Enrollment\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"EnrollmentToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"course\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"CourseToEnrollment\"},{\"name\":\"courseId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

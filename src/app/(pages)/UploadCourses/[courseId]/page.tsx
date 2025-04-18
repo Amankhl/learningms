@@ -1,77 +1,152 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { MoreVertical, Calendar, Home, Inbox, Search, Settings } from 'lucide-react';
+import { MoreVertical } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useParams, useRouter } from 'next/navigation';
+import axios from 'axios';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
-const items = [
-  { title: 'Dashboard', url: '#', icon: Home },
-  { title: 'Courses', url: '#', icon: Inbox },
-  { title: 'Certifications', url: '#', icon: Calendar },
-  { title: 'Guides', url: '#', icon: Search },
-  { title: 'Quiz', url: '#', icon: Settings },
-];
+
 
 const CourseEditor = () => {
+  const params = useParams();
+  const courseId = params?.courseId;
+  const router = useRouter()
+
+  const [course, setCourse] = useState<{
+    id: number;
+    title: string;
+    description: string;
+    content: string;
+    videoUrl?: string;
+    imgUrl?: string;
+    status: string;
+    chapters: { id: number; title: string; status: string }[];
+  } | null>(null);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!courseId) return;
+    (async () => {
+      try {
+        const res = await axios.get(`/api/courses/${courseId}`);
+        setCourse(res.data);
+        setIsLoading(false);
+        // console.log(res.data)
+      } catch (error) {
+        console.error('Failed to load course:', error);
+      }
+    })();
+  }, [courseId]);
 
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await fetch('/api/getdata');
-  //     console.log(response);
-  //   };
-  //   fetchData();
-  // });
-
-
-  const [chapters, setChapters] = useState([
-    {
-      title: 'Introduction to Git',
-      lessons: ['History of Git', 'Install Git on Mac & Windows', 'Basic Git Commands', 'Test your Git skills', 'Git commit & logs'],
-      status: ['Draft', 'Draft', 'Draft', 'Published', 'Published']
-    },
-    {
-      title: 'Git branching',
-      lessons: ['Feature branch', 'Merging multiple branches', 'Git rebase', 'Test your Git skills', 'Git branch commands'],
-      status: ['Draft', 'Draft', 'Draft', 'Published', 'Published']
+  const handleUpdateCourse = async () => {
+    try {
+      await axios.put(`/api/courses/${courseId}`, {
+        title: course?.title,
+        description: course?.description,
+        content: course?.content,
+        videoUrl: course?.videoUrl,
+        imgUrl: course?.imgUrl,
+        status: course?.status,
+      });
+      alert('Course updated successfully!');
+    } catch (error) {
+      console.error('Failed to update course:', error);
     }
-  ]);
+  };
+
+  if (isLoading || !course) {
+    return <p className="p-6">Loading course...</p>;
+  }
 
   return (
-        <main className="w-full p-6">
-          <header className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-semibold">Edit Course</h2>
-            <Button variant="secondary">Publish Changes</Button>
-          </header>
+    <main className="w-full min-h-[89%] p-6">
+      <div className='w-full flex justify-between'>
+        <h1 className='font-medium text-2xl mb-6 underline'>{course.title}</h1>
+        <p className='text-[#605f5f]'>{course.status}</p>
+      </div>
+      <header className="flex justify-between items-center mb-6">
+        <h2 className="text-xl font-semibold">Edit Course</h2>
+        <Button variant="default" onClick={handleUpdateCourse}>Publish Changes</Button>
+      </header>
 
-          <div className="flex space-x-4 mb-4">
-            {['Settings', 'Curriculum', 'Preview'].map((tab) => (
-              <Button key={tab} variant="ghost" className="text-gray-600">{tab}</Button>
-            ))}
-          </div>
+      <div className="flex space-x-4 mb-4">
+        {['Settings', 'Curriculum', 'Preview'].map((tab) => (
+          <Button key={tab} variant="ghost" className="text-gray-600">{tab}</Button>
+        ))}
+      </div>
 
-          {/* Curriculum Section */}
-          <div>
-            {chapters.map((chapter, chapterIndex) => (
-              <div key={chapterIndex} className="mb-6">
-                <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-lg font-medium">{chapter.title}</h3>
-                  <Button variant="outline">Add Content</Button>
+      {/* Curriculum Section */}
+      <div>
+        {
+          course?.chapters.length == 0 ? <p className='text-[#5e5e5e] text-center'>No content available</p> :
+            course?.chapters?.map((chapter) => (
+              <div key={chapter.id} className="mb-6">
+                <div className="flex justify-between items-center py-2 px-4 border-b">
+                  <div>
+                    <h3 className="text-lg font-medium">{chapter.title}</h3>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <span className={`text-sm px-2 py-1 rounded ${chapter.status === 'PUBLISHED' ? 'bg-green-100 text-green-600' : 'bg-yellow-100 text-yellow-600'}`}>
+                      {chapter.status}
+                    </span>
+                    {confirmDeleteId === chapter.id ? (
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={async () => {
+                          try {
+                            await axios.delete(`/api/courses/${chapter.id}`);
+                            setCourse((prev) => ({
+                              ...prev!,
+                              chapters: prev!.chapters.filter((c) => c.id !== chapter.id),
+                            }));
+                            setConfirmDeleteId(null);
+                          } catch (err) {
+                            console.error('Failed to delete chapter:', err);
+                            alert('Failed to delete chapter.');
+                          }
+                        }}
+                      >
+                        Confirm
+                      </Button>
+                    ) : (
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <MoreVertical className="cursor-pointer w-5 h-5" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-32">
+                          <DropdownMenuItem
+                            onClick={() =>
+                              router.push(`/educator/courses/${courseId}/chapters/${chapter.id}/edit`)
+                            }
+                            className="cursor-pointer"
+                          >
+                            Edit
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => setConfirmDeleteId(chapter.id)}
+                            className="text-red-600 cursor-pointer"
+                          >
+                            Delete
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    )}
+                  </div>
                 </div>
-                <ul>
-                  {chapter.lessons.map((lesson, lessonIndex) => (
-                    <li key={lessonIndex} className="flex justify-between items-center py-2 px-4 border-b">
-                      <span>{lesson}</span>
-                      <div className="flex items-center space-x-4">
-                        <span className={`text-sm px-2 py-1 rounded ${chapter.status[lessonIndex] === 'Published' ? 'bg-green-100 text-green-600' : 'bg-yellow-100 text-yellow-600'}`}>{chapter.status[lessonIndex]}</span>
-                        <MoreVertical className="cursor-pointer" />
-                      </div>
-                    </li>
-                  ))}
-                </ul>
               </div>
             ))}
-          </div>
-        </main>
+      </div>
+    </main>
   );
 };
 

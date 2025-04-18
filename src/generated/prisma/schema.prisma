@@ -43,6 +43,7 @@ model Course {
   educator    User         @relation("EducatorCourses", fields: [educatorId], references: [id])
   educatorId  Int
   createdAt   DateTime     @default(now())
+  chapters    Chapter[]
   enrollments Enrollment[]
 }
 
@@ -50,6 +51,21 @@ enum CourseStatus {
   DRAFT
   PUBLISHED
   ARCHIVED
+}
+
+model Chapter {
+  id        Int           @id @default(autoincrement())
+  title     String
+  status    ChapterStatus @default(DRAFT)
+  course    Course        @relation(fields: [courseId], references: [id])
+  courseId  Int
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+enum ChapterStatus {
+  DRAFT
+  PUBLISHED
 }
 
 model Enrollment {

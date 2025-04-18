@@ -51,7 +51,7 @@ export default function UploadCourse() {
         ) : courses.length > 0 ? (
           <ul className="space-y-4">
             {courses.map(course => (
-              <UploadedCourseCard key={course.id} title={course.title} description={course.description} instructor={course.educatorname} status={course?.status} img={course?.imgUrl} createdAt={course?.createdAt}/>
+              <UploadedCourseCard key={course.id} id={course.id} title={course.title} description={course.description} instructor={course.educatorname} status={course?.status} img={course?.imgUrl} createdAt={course?.createdAt}/>
             ))}
           </ul>
         ) : (

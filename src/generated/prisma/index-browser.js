@@ -137,6 +137,15 @@ exports.Prisma.CourseScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ChapterScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  status: 'status',
+  courseId: 'courseId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.EnrollmentScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -170,9 +179,15 @@ exports.CourseStatus = exports.$Enums.CourseStatus = {
   ARCHIVED: 'ARCHIVED'
 };
 
+exports.ChapterStatus = exports.$Enums.ChapterStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Course: 'Course',
+  Chapter: 'Chapter',
   Enrollment: 'Enrollment'
 };
 
