@@ -71,7 +71,7 @@ const Profile = () => {
     fetchData()
   }, []);
 
-  console.log(courses)
+  // console.log(courses)
 
   return (
     <div className="min-h-screen bg-white text-black p-8">

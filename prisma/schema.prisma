@@ -37,10 +37,19 @@ model Course {
   description String
   content     String     // written content (Markdown/HTML)
   videoUrl    String?    
+  imgUrl      String?    
+  status      CourseStatus @default(DRAFT)
+
   educator    User       @relation("EducatorCourses", fields: [educatorId], references: [id])
   educatorId  Int
   createdAt   DateTime   @default(now())
   enrollments Enrollment[]
+}
+
+enum CourseStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
 }
 
 model Enrollment {

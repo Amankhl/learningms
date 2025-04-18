@@ -6,7 +6,7 @@ import { Area, AreaChart, CartesianGrid, XAxis, Bar, BarChart, YAxis } from 'rec
 import { ChartContainer, ChartStyle, ChartTooltip, ChartTooltipContent, type ChartConfig } from '@/components/ui/chart';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { PieSectorDataItem } from 'recharts/types/polar/Pie';
-import { getData } from '@/actions/auth';
+// import { getData } from '@/actions/auth';
 
 const chartData = [
     { month: 'January', desktop: 186, mobile: 80 },
@@ -85,10 +85,10 @@ const Dashboard = () => {
     )
     const months = React.useMemo(() => desktopData.map((item) => item.month), [])
 
-    useEffect(() => {
-        const data = getData()
-        console.log(data)
-    })
+    // useEffect(() => {
+    //     const data = getData()
+    //     console.log(data)
+    // })
     
     return (
         <div className="min-h-screen bg-white text-black flex">

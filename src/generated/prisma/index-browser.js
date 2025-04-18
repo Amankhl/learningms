@@ -131,6 +131,8 @@ exports.Prisma.CourseScalarFieldEnum = {
   description: 'description',
   content: 'content',
   videoUrl: 'videoUrl',
+  imgUrl: 'imgUrl',
+  status: 'status',
   educatorId: 'educatorId',
   createdAt: 'createdAt'
 };
@@ -160,6 +162,12 @@ exports.Role = exports.$Enums.Role = {
   STUDENT: 'STUDENT',
   EDUCATOR: 'EDUCATOR',
   ADMIN: 'ADMIN'
+};
+
+exports.CourseStatus = exports.$Enums.CourseStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED'
 };
 
 exports.Prisma.ModelName = {

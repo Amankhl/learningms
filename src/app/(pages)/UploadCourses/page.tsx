@@ -1,78 +1,63 @@
 'use client'
-import React, { useEffect, useState } from 'react';
-import { MoreVertical, Calendar, Home, Inbox, Search, Settings } from 'lucide-react';
+import { useEffect, useState, useTransition } from 'react';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import { UploadedCourseCard } from '@/components/UploadedCourseCard';
 
-const items = [
-  { title: 'Dashboard', url: '#', icon: Home },
-  { title: 'Courses', url: '#', icon: Inbox },
-  { title: 'Certifications', url: '#', icon: Calendar },
-  { title: 'Guides', url: '#', icon: Search },
-  { title: 'Quiz', url: '#', icon: Settings },
-];
-
-const CourseEditor = () => {
-
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await fetch('/api/getdata');
-  //     console.log(response);
-  //   };
-  //   fetchData();
-  // });
-
-
-  const [chapters, setChapters] = useState([
-    {
-      title: 'Introduction to Git',
-      lessons: ['History of Git', 'Install Git on Mac & Windows', 'Basic Git Commands', 'Test your Git skills', 'Git commit & logs'],
-      status: ['Draft', 'Draft', 'Draft', 'Published', 'Published']
-    },
-    {
-      title: 'Git branching',
-      lessons: ['Feature branch', 'Merging multiple branches', 'Git rebase', 'Test your Git skills', 'Git branch commands'],
-      status: ['Draft', 'Draft', 'Draft', 'Published', 'Published']
-    }
-  ]);
-
-  return (
-        <main className="w-full p-6">
-          <header className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-semibold">Edit Course</h2>
-            <Button variant="secondary">Publish Changes</Button>
-          </header>
-
-          <div className="flex space-x-4 mb-4">
-            {['Settings', 'Curriculum', 'Preview'].map((tab) => (
-              <Button key={tab} variant="ghost" className="text-gray-600">{tab}</Button>
-            ))}
-          </div>
-
-          {/* Curriculum Section */}
-          <div>
-            {chapters.map((chapter, chapterIndex) => (
-              <div key={chapterIndex} className="mb-6">
-                <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-lg font-medium">{chapter.title}</h3>
-                  <Button variant="outline">Add Content</Button>
-                </div>
-                <ul>
-                  {chapter.lessons.map((lesson, lessonIndex) => (
-                    <li key={lessonIndex} className="flex justify-between items-center py-2 px-4 border-b">
-                      <span>{lesson}</span>
-                      <div className="flex items-center space-x-4">
-                        <span className={`text-sm px-2 py-1 rounded ${chapter.status[lessonIndex] === 'Published' ? 'bg-green-100 text-green-600' : 'bg-yellow-100 text-yellow-600'}`}>{chapter.status[lessonIndex]}</span>
-                        <MoreVertical className="cursor-pointer" />
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </main>
-  );
+type Course = {
+  id: number;
+  title: string;
+  description: string;
+  content: string;
+  videoUrl?: string;
+  educatorname: string;
+  imgUrl?: string;
+  status: string;
+  createdAt: string;
 };
 
-export default CourseEditor;
+export default function UploadCourse() {
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [isPending, startTransition] = useTransition();
+
+  const router = useRouter();
+  
+  useEffect(() => {
+    startTransition(() => {
+      (async function () {
+        try {
+          const response = await axios.get('/api/courses');
+          console.log(response)
+          setCourses(response.data);
+        } catch (error) {
+          console.error('Error fetching uploaded courses:', error);
+        }
+      })();
+    });
+  }, []);
+
+    return (
+      <main className="p-6 h-[93%] w-full">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">Your Uploaded Courses</h1>
+        <Button onClick={() => router.push('/UploadCourses/CreateCourse')}>
+          Create Course
+        </Button>
+      </div>
+      <div className='w-full h-full flex-wrap flex'>
+        {isPending ? (
+          <p className="text-center text-gray-400">Loading courses...</p>
+        ) : courses.length > 0 ? (
+          <ul className="space-y-4">
+            {courses.map(course => (
+              <UploadedCourseCard key={course.id} title={course.title} description={course.description} instructor={course.educatorname} status={course?.status} img={course?.imgUrl} createdAt={course?.createdAt}/>
+            ))}
+          </ul>
+        ) : (
+        <p className="text-center text-gray-500 mt-10">You haven't uploaded any course.</p>
+        )}
+      </div>
+    </main>
+    );
+}

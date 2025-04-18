@@ -41,11 +41,24 @@ export namespace $Enums {
 
 export type Role = (typeof Role)[keyof typeof Role]
 
+
+export const CourseStatus: {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED'
+};
+
+export type CourseStatus = (typeof CourseStatus)[keyof typeof CourseStatus]
+
 }
 
 export type Role = $Enums.Role
 
 export const Role: typeof $Enums.Role
+
+export type CourseStatus = $Enums.CourseStatus
+
+export const CourseStatus: typeof $Enums.CourseStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -2303,6 +2316,8 @@ export namespace Prisma {
     description: string | null
     content: string | null
     videoUrl: string | null
+    imgUrl: string | null
+    status: $Enums.CourseStatus | null
     educatorId: number | null
     createdAt: Date | null
   }
@@ -2313,6 +2328,8 @@ export namespace Prisma {
     description: string | null
     content: string | null
     videoUrl: string | null
+    imgUrl: string | null
+    status: $Enums.CourseStatus | null
     educatorId: number | null
     createdAt: Date | null
   }
@@ -2323,6 +2340,8 @@ export namespace Prisma {
     description: number
     content: number
     videoUrl: number
+    imgUrl: number
+    status: number
     educatorId: number
     createdAt: number
     _all: number
@@ -2345,6 +2364,8 @@ export namespace Prisma {
     description?: true
     content?: true
     videoUrl?: true
+    imgUrl?: true
+    status?: true
     educatorId?: true
     createdAt?: true
   }
@@ -2355,6 +2376,8 @@ export namespace Prisma {
     description?: true
     content?: true
     videoUrl?: true
+    imgUrl?: true
+    status?: true
     educatorId?: true
     createdAt?: true
   }
@@ -2365,6 +2388,8 @@ export namespace Prisma {
     description?: true
     content?: true
     videoUrl?: true
+    imgUrl?: true
+    status?: true
     educatorId?: true
     createdAt?: true
     _all?: true
@@ -2462,6 +2487,8 @@ export namespace Prisma {
     description: string
     content: string
     videoUrl: string | null
+    imgUrl: string | null
+    status: $Enums.CourseStatus
     educatorId: number
     createdAt: Date
     _count: CourseCountAggregateOutputType | null
@@ -2491,6 +2518,8 @@ export namespace Prisma {
     description?: boolean
     content?: boolean
     videoUrl?: boolean
+    imgUrl?: boolean
+    status?: boolean
     educatorId?: boolean
     createdAt?: boolean
     educator?: boolean | UserDefaultArgs<ExtArgs>
@@ -2504,6 +2533,8 @@ export namespace Prisma {
     description?: boolean
     content?: boolean
     videoUrl?: boolean
+    imgUrl?: boolean
+    status?: boolean
     educatorId?: boolean
     createdAt?: boolean
     educator?: boolean | UserDefaultArgs<ExtArgs>
@@ -2515,6 +2546,8 @@ export namespace Prisma {
     description?: boolean
     content?: boolean
     videoUrl?: boolean
+    imgUrl?: boolean
+    status?: boolean
     educatorId?: boolean
     createdAt?: boolean
     educator?: boolean | UserDefaultArgs<ExtArgs>
@@ -2526,11 +2559,13 @@ export namespace Prisma {
     description?: boolean
     content?: boolean
     videoUrl?: boolean
+    imgUrl?: boolean
+    status?: boolean
     educatorId?: boolean
     createdAt?: boolean
   }
 
-  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "content" | "videoUrl" | "educatorId" | "createdAt", ExtArgs["result"]["course"]>
+  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "content" | "videoUrl" | "imgUrl" | "status" | "educatorId" | "createdAt", ExtArgs["result"]["course"]>
   export type CourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     educator?: boolean | UserDefaultArgs<ExtArgs>
     enrollments?: boolean | Course$enrollmentsArgs<ExtArgs>
@@ -2555,6 +2590,8 @@ export namespace Prisma {
       description: string
       content: string
       videoUrl: string | null
+      imgUrl: string | null
+      status: $Enums.CourseStatus
       educatorId: number
       createdAt: Date
     }, ExtArgs["result"]["course"]>
@@ -2987,6 +3024,8 @@ export namespace Prisma {
     readonly description: FieldRef<"Course", 'String'>
     readonly content: FieldRef<"Course", 'String'>
     readonly videoUrl: FieldRef<"Course", 'String'>
+    readonly imgUrl: FieldRef<"Course", 'String'>
+    readonly status: FieldRef<"Course", 'CourseStatus'>
     readonly educatorId: FieldRef<"Course", 'Int'>
     readonly createdAt: FieldRef<"Course", 'DateTime'>
   }
@@ -4553,6 +4592,8 @@ export namespace Prisma {
     description: 'description',
     content: 'content',
     videoUrl: 'videoUrl',
+    imgUrl: 'imgUrl',
+    status: 'status',
     educatorId: 'educatorId',
     createdAt: 'createdAt'
   };
@@ -4638,6 +4679,20 @@ export namespace Prisma {
    * Reference to a field of type 'Role[]'
    */
   export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CourseStatus'
+   */
+  export type EnumCourseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CourseStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'CourseStatus[]'
+   */
+  export type ListEnumCourseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CourseStatus[]'>
     
 
 
@@ -4741,6 +4796,8 @@ export namespace Prisma {
     description?: StringFilter<"Course"> | string
     content?: StringFilter<"Course"> | string
     videoUrl?: StringNullableFilter<"Course"> | string | null
+    imgUrl?: StringNullableFilter<"Course"> | string | null
+    status?: EnumCourseStatusFilter<"Course"> | $Enums.CourseStatus
     educatorId?: IntFilter<"Course"> | number
     createdAt?: DateTimeFilter<"Course"> | Date | string
     educator?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -4753,6 +4810,8 @@ export namespace Prisma {
     description?: SortOrder
     content?: SortOrder
     videoUrl?: SortOrderInput | SortOrder
+    imgUrl?: SortOrderInput | SortOrder
+    status?: SortOrder
     educatorId?: SortOrder
     createdAt?: SortOrder
     educator?: UserOrderByWithRelationInput
@@ -4768,6 +4827,8 @@ export namespace Prisma {
     description?: StringFilter<"Course"> | string
     content?: StringFilter<"Course"> | string
     videoUrl?: StringNullableFilter<"Course"> | string | null
+    imgUrl?: StringNullableFilter<"Course"> | string | null
+    status?: EnumCourseStatusFilter<"Course"> | $Enums.CourseStatus
     educatorId?: IntFilter<"Course"> | number
     createdAt?: DateTimeFilter<"Course"> | Date | string
     educator?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -4780,6 +4841,8 @@ export namespace Prisma {
     description?: SortOrder
     content?: SortOrder
     videoUrl?: SortOrderInput | SortOrder
+    imgUrl?: SortOrderInput | SortOrder
+    status?: SortOrder
     educatorId?: SortOrder
     createdAt?: SortOrder
     _count?: CourseCountOrderByAggregateInput
@@ -4798,6 +4861,8 @@ export namespace Prisma {
     description?: StringWithAggregatesFilter<"Course"> | string
     content?: StringWithAggregatesFilter<"Course"> | string
     videoUrl?: StringNullableWithAggregatesFilter<"Course"> | string | null
+    imgUrl?: StringNullableWithAggregatesFilter<"Course"> | string | null
+    status?: EnumCourseStatusWithAggregatesFilter<"Course"> | $Enums.CourseStatus
     educatorId?: IntWithAggregatesFilter<"Course"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Course"> | Date | string
   }
@@ -4924,6 +4989,8 @@ export namespace Prisma {
     description: string
     content: string
     videoUrl?: string | null
+    imgUrl?: string | null
+    status?: $Enums.CourseStatus
     createdAt?: Date | string
     educator: UserCreateNestedOneWithoutCoursesInput
     enrollments?: EnrollmentCreateNestedManyWithoutCourseInput
@@ -4935,6 +5002,8 @@ export namespace Prisma {
     description: string
     content: string
     videoUrl?: string | null
+    imgUrl?: string | null
+    status?: $Enums.CourseStatus
     educatorId: number
     createdAt?: Date | string
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutCourseInput
@@ -4945,6 +5014,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     educator?: UserUpdateOneRequiredWithoutCoursesNestedInput
     enrollments?: EnrollmentUpdateManyWithoutCourseNestedInput
@@ -4956,6 +5027,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
     educatorId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enrollments?: EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
@@ -4967,6 +5040,8 @@ export namespace Prisma {
     description: string
     content: string
     videoUrl?: string | null
+    imgUrl?: string | null
+    status?: $Enums.CourseStatus
     educatorId: number
     createdAt?: Date | string
   }
@@ -4976,6 +5051,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4985,6 +5062,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
     educatorId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5177,6 +5256,13 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type EnumCourseStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CourseStatus | EnumCourseStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CourseStatus[] | ListEnumCourseStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CourseStatus[] | ListEnumCourseStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCourseStatusFilter<$PrismaModel> | $Enums.CourseStatus
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -5204,6 +5290,8 @@ export namespace Prisma {
     description?: SortOrder
     content?: SortOrder
     videoUrl?: SortOrder
+    imgUrl?: SortOrder
+    status?: SortOrder
     educatorId?: SortOrder
     createdAt?: SortOrder
   }
@@ -5219,6 +5307,8 @@ export namespace Prisma {
     description?: SortOrder
     content?: SortOrder
     videoUrl?: SortOrder
+    imgUrl?: SortOrder
+    status?: SortOrder
     educatorId?: SortOrder
     createdAt?: SortOrder
   }
@@ -5229,6 +5319,8 @@ export namespace Prisma {
     description?: SortOrder
     content?: SortOrder
     videoUrl?: SortOrder
+    imgUrl?: SortOrder
+    status?: SortOrder
     educatorId?: SortOrder
     createdAt?: SortOrder
   }
@@ -5254,6 +5346,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type EnumCourseStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CourseStatus | EnumCourseStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CourseStatus[] | ListEnumCourseStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CourseStatus[] | ListEnumCourseStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCourseStatusWithAggregatesFilter<$PrismaModel> | $Enums.CourseStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCourseStatusFilter<$PrismaModel>
+    _max?: NestedEnumCourseStatusFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -5437,6 +5539,10 @@ export namespace Prisma {
     set?: string | null
   }
 
+  export type EnumCourseStatusFieldUpdateOperationsInput = {
+    set?: $Enums.CourseStatus
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -5605,6 +5711,13 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedEnumCourseStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CourseStatus | EnumCourseStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CourseStatus[] | ListEnumCourseStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CourseStatus[] | ListEnumCourseStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCourseStatusFilter<$PrismaModel> | $Enums.CourseStatus
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -5644,6 +5757,16 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedEnumCourseStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CourseStatus | EnumCourseStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CourseStatus[] | ListEnumCourseStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CourseStatus[] | ListEnumCourseStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCourseStatusWithAggregatesFilter<$PrismaModel> | $Enums.CourseStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCourseStatusFilter<$PrismaModel>
+    _max?: NestedEnumCourseStatusFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -5663,6 +5786,8 @@ export namespace Prisma {
     description: string
     content: string
     videoUrl?: string | null
+    imgUrl?: string | null
+    status?: $Enums.CourseStatus
     createdAt?: Date | string
     enrollments?: EnrollmentCreateNestedManyWithoutCourseInput
   }
@@ -5673,6 +5798,8 @@ export namespace Prisma {
     description: string
     content: string
     videoUrl?: string | null
+    imgUrl?: string | null
+    status?: $Enums.CourseStatus
     createdAt?: Date | string
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutCourseInput
   }
@@ -5733,6 +5860,8 @@ export namespace Prisma {
     description?: StringFilter<"Course"> | string
     content?: StringFilter<"Course"> | string
     videoUrl?: StringNullableFilter<"Course"> | string | null
+    imgUrl?: StringNullableFilter<"Course"> | string | null
+    status?: EnumCourseStatusFilter<"Course"> | $Enums.CourseStatus
     educatorId?: IntFilter<"Course"> | number
     createdAt?: DateTimeFilter<"Course"> | Date | string
   }
@@ -5877,6 +6006,8 @@ export namespace Prisma {
     description: string
     content: string
     videoUrl?: string | null
+    imgUrl?: string | null
+    status?: $Enums.CourseStatus
     createdAt?: Date | string
     educator: UserCreateNestedOneWithoutCoursesInput
   }
@@ -5887,6 +6018,8 @@ export namespace Prisma {
     description: string
     content: string
     videoUrl?: string | null
+    imgUrl?: string | null
+    status?: $Enums.CourseStatus
     educatorId: number
     createdAt?: Date | string
   }
@@ -5940,6 +6073,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     educator?: UserUpdateOneRequiredWithoutCoursesNestedInput
   }
@@ -5950,6 +6085,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
     educatorId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5960,6 +6097,8 @@ export namespace Prisma {
     description: string
     content: string
     videoUrl?: string | null
+    imgUrl?: string | null
+    status?: $Enums.CourseStatus
     createdAt?: Date | string
   }
 
@@ -5974,6 +6113,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enrollments?: EnrollmentUpdateManyWithoutCourseNestedInput
   }
@@ -5984,6 +6125,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enrollments?: EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
   }
@@ -5994,6 +6137,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
