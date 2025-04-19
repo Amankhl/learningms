@@ -2426,7 +2426,6 @@ export namespace Prisma {
     id: number | null
     title: string | null
     description: string | null
-    content: string | null
     videoUrl: string | null
     imgUrl: string | null
     status: $Enums.CourseStatus | null
@@ -2438,7 +2437,6 @@ export namespace Prisma {
     id: number | null
     title: string | null
     description: string | null
-    content: string | null
     videoUrl: string | null
     imgUrl: string | null
     status: $Enums.CourseStatus | null
@@ -2450,7 +2448,6 @@ export namespace Prisma {
     id: number
     title: number
     description: number
-    content: number
     videoUrl: number
     imgUrl: number
     status: number
@@ -2474,7 +2471,6 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
-    content?: true
     videoUrl?: true
     imgUrl?: true
     status?: true
@@ -2486,7 +2482,6 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
-    content?: true
     videoUrl?: true
     imgUrl?: true
     status?: true
@@ -2498,7 +2493,6 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
-    content?: true
     videoUrl?: true
     imgUrl?: true
     status?: true
@@ -2597,7 +2591,6 @@ export namespace Prisma {
     id: number
     title: string
     description: string
-    content: string
     videoUrl: string | null
     imgUrl: string | null
     status: $Enums.CourseStatus
@@ -2628,7 +2621,6 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
-    content?: boolean
     videoUrl?: boolean
     imgUrl?: boolean
     status?: boolean
@@ -2644,7 +2636,6 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
-    content?: boolean
     videoUrl?: boolean
     imgUrl?: boolean
     status?: boolean
@@ -2657,7 +2648,6 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
-    content?: boolean
     videoUrl?: boolean
     imgUrl?: boolean
     status?: boolean
@@ -2670,7 +2660,6 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
-    content?: boolean
     videoUrl?: boolean
     imgUrl?: boolean
     status?: boolean
@@ -2678,7 +2667,7 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "content" | "videoUrl" | "imgUrl" | "status" | "educatorId" | "createdAt", ExtArgs["result"]["course"]>
+  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "videoUrl" | "imgUrl" | "status" | "educatorId" | "createdAt", ExtArgs["result"]["course"]>
   export type CourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     educator?: boolean | UserDefaultArgs<ExtArgs>
     chapters?: boolean | Course$chaptersArgs<ExtArgs>
@@ -2703,7 +2692,6 @@ export namespace Prisma {
       id: number
       title: string
       description: string
-      content: string
       videoUrl: string | null
       imgUrl: string | null
       status: $Enums.CourseStatus
@@ -3138,7 +3126,6 @@ export namespace Prisma {
     readonly id: FieldRef<"Course", 'Int'>
     readonly title: FieldRef<"Course", 'String'>
     readonly description: FieldRef<"Course", 'String'>
-    readonly content: FieldRef<"Course", 'String'>
     readonly videoUrl: FieldRef<"Course", 'String'>
     readonly imgUrl: FieldRef<"Course", 'String'>
     readonly status: FieldRef<"Course", 'CourseStatus'>
@@ -3631,6 +3618,7 @@ export namespace Prisma {
   export type ChapterMinAggregateOutputType = {
     id: number | null
     title: string | null
+    content: string | null
     status: $Enums.ChapterStatus | null
     courseId: number | null
     createdAt: Date | null
@@ -3640,6 +3628,7 @@ export namespace Prisma {
   export type ChapterMaxAggregateOutputType = {
     id: number | null
     title: string | null
+    content: string | null
     status: $Enums.ChapterStatus | null
     courseId: number | null
     createdAt: Date | null
@@ -3649,6 +3638,7 @@ export namespace Prisma {
   export type ChapterCountAggregateOutputType = {
     id: number
     title: number
+    content: number
     status: number
     courseId: number
     createdAt: number
@@ -3670,6 +3660,7 @@ export namespace Prisma {
   export type ChapterMinAggregateInputType = {
     id?: true
     title?: true
+    content?: true
     status?: true
     courseId?: true
     createdAt?: true
@@ -3679,6 +3670,7 @@ export namespace Prisma {
   export type ChapterMaxAggregateInputType = {
     id?: true
     title?: true
+    content?: true
     status?: true
     courseId?: true
     createdAt?: true
@@ -3688,6 +3680,7 @@ export namespace Prisma {
   export type ChapterCountAggregateInputType = {
     id?: true
     title?: true
+    content?: true
     status?: true
     courseId?: true
     createdAt?: true
@@ -3784,6 +3777,7 @@ export namespace Prisma {
   export type ChapterGroupByOutputType = {
     id: number
     title: string
+    content: string
     status: $Enums.ChapterStatus
     courseId: number
     createdAt: Date
@@ -3812,6 +3806,7 @@ export namespace Prisma {
   export type ChapterSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    content?: boolean
     status?: boolean
     courseId?: boolean
     createdAt?: boolean
@@ -3822,6 +3817,7 @@ export namespace Prisma {
   export type ChapterSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    content?: boolean
     status?: boolean
     courseId?: boolean
     createdAt?: boolean
@@ -3832,6 +3828,7 @@ export namespace Prisma {
   export type ChapterSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    content?: boolean
     status?: boolean
     courseId?: boolean
     createdAt?: boolean
@@ -3842,13 +3839,14 @@ export namespace Prisma {
   export type ChapterSelectScalar = {
     id?: boolean
     title?: boolean
+    content?: boolean
     status?: boolean
     courseId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ChapterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "status" | "courseId" | "createdAt" | "updatedAt", ExtArgs["result"]["chapter"]>
+  export type ChapterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "status" | "courseId" | "createdAt" | "updatedAt", ExtArgs["result"]["chapter"]>
   export type ChapterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     course?: boolean | CourseDefaultArgs<ExtArgs>
   }
@@ -3867,6 +3865,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       title: string
+      content: string
       status: $Enums.ChapterStatus
       courseId: number
       createdAt: Date
@@ -4297,6 +4296,7 @@ export namespace Prisma {
   interface ChapterFieldRefs {
     readonly id: FieldRef<"Chapter", 'Int'>
     readonly title: FieldRef<"Chapter", 'String'>
+    readonly content: FieldRef<"Chapter", 'String'>
     readonly status: FieldRef<"Chapter", 'ChapterStatus'>
     readonly courseId: FieldRef<"Chapter", 'Int'>
     readonly createdAt: FieldRef<"Chapter", 'DateTime'>
@@ -5839,7 +5839,6 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     description: 'description',
-    content: 'content',
     videoUrl: 'videoUrl',
     imgUrl: 'imgUrl',
     status: 'status',
@@ -5853,6 +5852,7 @@ export namespace Prisma {
   export const ChapterScalarFieldEnum: {
     id: 'id',
     title: 'title',
+    content: 'content',
     status: 'status',
     courseId: 'courseId',
     createdAt: 'createdAt',
@@ -6069,7 +6069,6 @@ export namespace Prisma {
     id?: IntFilter<"Course"> | number
     title?: StringFilter<"Course"> | string
     description?: StringFilter<"Course"> | string
-    content?: StringFilter<"Course"> | string
     videoUrl?: StringNullableFilter<"Course"> | string | null
     imgUrl?: StringNullableFilter<"Course"> | string | null
     status?: EnumCourseStatusFilter<"Course"> | $Enums.CourseStatus
@@ -6084,7 +6083,6 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    content?: SortOrder
     videoUrl?: SortOrderInput | SortOrder
     imgUrl?: SortOrderInput | SortOrder
     status?: SortOrder
@@ -6102,7 +6100,6 @@ export namespace Prisma {
     NOT?: CourseWhereInput | CourseWhereInput[]
     title?: StringFilter<"Course"> | string
     description?: StringFilter<"Course"> | string
-    content?: StringFilter<"Course"> | string
     videoUrl?: StringNullableFilter<"Course"> | string | null
     imgUrl?: StringNullableFilter<"Course"> | string | null
     status?: EnumCourseStatusFilter<"Course"> | $Enums.CourseStatus
@@ -6117,7 +6114,6 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    content?: SortOrder
     videoUrl?: SortOrderInput | SortOrder
     imgUrl?: SortOrderInput | SortOrder
     status?: SortOrder
@@ -6137,7 +6133,6 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Course"> | number
     title?: StringWithAggregatesFilter<"Course"> | string
     description?: StringWithAggregatesFilter<"Course"> | string
-    content?: StringWithAggregatesFilter<"Course"> | string
     videoUrl?: StringNullableWithAggregatesFilter<"Course"> | string | null
     imgUrl?: StringNullableWithAggregatesFilter<"Course"> | string | null
     status?: EnumCourseStatusWithAggregatesFilter<"Course"> | $Enums.CourseStatus
@@ -6151,6 +6146,7 @@ export namespace Prisma {
     NOT?: ChapterWhereInput | ChapterWhereInput[]
     id?: IntFilter<"Chapter"> | number
     title?: StringFilter<"Chapter"> | string
+    content?: StringFilter<"Chapter"> | string
     status?: EnumChapterStatusFilter<"Chapter"> | $Enums.ChapterStatus
     courseId?: IntFilter<"Chapter"> | number
     createdAt?: DateTimeFilter<"Chapter"> | Date | string
@@ -6161,6 +6157,7 @@ export namespace Prisma {
   export type ChapterOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
+    content?: SortOrder
     status?: SortOrder
     courseId?: SortOrder
     createdAt?: SortOrder
@@ -6174,6 +6171,7 @@ export namespace Prisma {
     OR?: ChapterWhereInput[]
     NOT?: ChapterWhereInput | ChapterWhereInput[]
     title?: StringFilter<"Chapter"> | string
+    content?: StringFilter<"Chapter"> | string
     status?: EnumChapterStatusFilter<"Chapter"> | $Enums.ChapterStatus
     courseId?: IntFilter<"Chapter"> | number
     createdAt?: DateTimeFilter<"Chapter"> | Date | string
@@ -6184,6 +6182,7 @@ export namespace Prisma {
   export type ChapterOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
+    content?: SortOrder
     status?: SortOrder
     courseId?: SortOrder
     createdAt?: SortOrder
@@ -6201,6 +6200,7 @@ export namespace Prisma {
     NOT?: ChapterScalarWhereWithAggregatesInput | ChapterScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Chapter"> | number
     title?: StringWithAggregatesFilter<"Chapter"> | string
+    content?: StringWithAggregatesFilter<"Chapter"> | string
     status?: EnumChapterStatusWithAggregatesFilter<"Chapter"> | $Enums.ChapterStatus
     courseId?: IntWithAggregatesFilter<"Chapter"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Chapter"> | Date | string
@@ -6327,7 +6327,6 @@ export namespace Prisma {
   export type CourseCreateInput = {
     title: string
     description: string
-    content: string
     videoUrl?: string | null
     imgUrl?: string | null
     status?: $Enums.CourseStatus
@@ -6341,7 +6340,6 @@ export namespace Prisma {
     id?: number
     title: string
     description: string
-    content: string
     videoUrl?: string | null
     imgUrl?: string | null
     status?: $Enums.CourseStatus
@@ -6354,7 +6352,6 @@ export namespace Prisma {
   export type CourseUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
@@ -6368,7 +6365,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
@@ -6382,7 +6378,6 @@ export namespace Prisma {
     id?: number
     title: string
     description: string
-    content: string
     videoUrl?: string | null
     imgUrl?: string | null
     status?: $Enums.CourseStatus
@@ -6393,7 +6388,6 @@ export namespace Prisma {
   export type CourseUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
@@ -6404,7 +6398,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
@@ -6414,6 +6407,7 @@ export namespace Prisma {
 
   export type ChapterCreateInput = {
     title: string
+    content: string
     status?: $Enums.ChapterStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6423,6 +6417,7 @@ export namespace Prisma {
   export type ChapterUncheckedCreateInput = {
     id?: number
     title: string
+    content: string
     status?: $Enums.ChapterStatus
     courseId: number
     createdAt?: Date | string
@@ -6431,6 +6426,7 @@ export namespace Prisma {
 
   export type ChapterUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
     status?: EnumChapterStatusFieldUpdateOperationsInput | $Enums.ChapterStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6440,6 +6436,7 @@ export namespace Prisma {
   export type ChapterUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
     status?: EnumChapterStatusFieldUpdateOperationsInput | $Enums.ChapterStatus
     courseId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6449,6 +6446,7 @@ export namespace Prisma {
   export type ChapterCreateManyInput = {
     id?: number
     title: string
+    content: string
     status?: $Enums.ChapterStatus
     courseId: number
     createdAt?: Date | string
@@ -6457,6 +6455,7 @@ export namespace Prisma {
 
   export type ChapterUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
     status?: EnumChapterStatusFieldUpdateOperationsInput | $Enums.ChapterStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6465,6 +6464,7 @@ export namespace Prisma {
   export type ChapterUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
     status?: EnumChapterStatusFieldUpdateOperationsInput | $Enums.ChapterStatus
     courseId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6701,7 +6701,6 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    content?: SortOrder
     videoUrl?: SortOrder
     imgUrl?: SortOrder
     status?: SortOrder
@@ -6718,7 +6717,6 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    content?: SortOrder
     videoUrl?: SortOrder
     imgUrl?: SortOrder
     status?: SortOrder
@@ -6730,7 +6728,6 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    content?: SortOrder
     videoUrl?: SortOrder
     imgUrl?: SortOrder
     status?: SortOrder
@@ -6800,6 +6797,7 @@ export namespace Prisma {
   export type ChapterCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    content?: SortOrder
     status?: SortOrder
     courseId?: SortOrder
     createdAt?: SortOrder
@@ -6814,6 +6812,7 @@ export namespace Prisma {
   export type ChapterMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    content?: SortOrder
     status?: SortOrder
     courseId?: SortOrder
     createdAt?: SortOrder
@@ -6823,6 +6822,7 @@ export namespace Prisma {
   export type ChapterMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    content?: SortOrder
     status?: SortOrder
     courseId?: SortOrder
     createdAt?: SortOrder
@@ -7328,7 +7328,6 @@ export namespace Prisma {
   export type CourseCreateWithoutEducatorInput = {
     title: string
     description: string
-    content: string
     videoUrl?: string | null
     imgUrl?: string | null
     status?: $Enums.CourseStatus
@@ -7341,7 +7340,6 @@ export namespace Prisma {
     id?: number
     title: string
     description: string
-    content: string
     videoUrl?: string | null
     imgUrl?: string | null
     status?: $Enums.CourseStatus
@@ -7404,7 +7402,6 @@ export namespace Prisma {
     id?: IntFilter<"Course"> | number
     title?: StringFilter<"Course"> | string
     description?: StringFilter<"Course"> | string
-    content?: StringFilter<"Course"> | string
     videoUrl?: StringNullableFilter<"Course"> | string | null
     imgUrl?: StringNullableFilter<"Course"> | string | null
     status?: EnumCourseStatusFilter<"Course"> | $Enums.CourseStatus
@@ -7462,6 +7459,7 @@ export namespace Prisma {
 
   export type ChapterCreateWithoutCourseInput = {
     title: string
+    content: string
     status?: $Enums.ChapterStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -7470,6 +7468,7 @@ export namespace Prisma {
   export type ChapterUncheckedCreateWithoutCourseInput = {
     id?: number
     title: string
+    content: string
     status?: $Enums.ChapterStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -7556,6 +7555,7 @@ export namespace Prisma {
     NOT?: ChapterScalarWhereInput | ChapterScalarWhereInput[]
     id?: IntFilter<"Chapter"> | number
     title?: StringFilter<"Chapter"> | string
+    content?: StringFilter<"Chapter"> | string
     status?: EnumChapterStatusFilter<"Chapter"> | $Enums.ChapterStatus
     courseId?: IntFilter<"Chapter"> | number
     createdAt?: DateTimeFilter<"Chapter"> | Date | string
@@ -7581,7 +7581,6 @@ export namespace Prisma {
   export type CourseCreateWithoutChaptersInput = {
     title: string
     description: string
-    content: string
     videoUrl?: string | null
     imgUrl?: string | null
     status?: $Enums.CourseStatus
@@ -7594,7 +7593,6 @@ export namespace Prisma {
     id?: number
     title: string
     description: string
-    content: string
     videoUrl?: string | null
     imgUrl?: string | null
     status?: $Enums.CourseStatus
@@ -7622,7 +7620,6 @@ export namespace Prisma {
   export type CourseUpdateWithoutChaptersInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
@@ -7635,7 +7632,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
@@ -7669,7 +7665,6 @@ export namespace Prisma {
   export type CourseCreateWithoutEnrollmentsInput = {
     title: string
     description: string
-    content: string
     videoUrl?: string | null
     imgUrl?: string | null
     status?: $Enums.CourseStatus
@@ -7682,7 +7677,6 @@ export namespace Prisma {
     id?: number
     title: string
     description: string
-    content: string
     videoUrl?: string | null
     imgUrl?: string | null
     status?: $Enums.CourseStatus
@@ -7738,7 +7732,6 @@ export namespace Prisma {
   export type CourseUpdateWithoutEnrollmentsInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
@@ -7751,7 +7744,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
@@ -7764,7 +7756,6 @@ export namespace Prisma {
     id?: number
     title: string
     description: string
-    content: string
     videoUrl?: string | null
     imgUrl?: string | null
     status?: $Enums.CourseStatus
@@ -7780,7 +7771,6 @@ export namespace Prisma {
   export type CourseUpdateWithoutEducatorInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
@@ -7793,7 +7783,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
@@ -7806,7 +7795,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
@@ -7833,6 +7821,7 @@ export namespace Prisma {
   export type ChapterCreateManyCourseInput = {
     id?: number
     title: string
+    content: string
     status?: $Enums.ChapterStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -7846,6 +7835,7 @@ export namespace Prisma {
 
   export type ChapterUpdateWithoutCourseInput = {
     title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
     status?: EnumChapterStatusFieldUpdateOperationsInput | $Enums.ChapterStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7854,6 +7844,7 @@ export namespace Prisma {
   export type ChapterUncheckedUpdateWithoutCourseInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
     status?: EnumChapterStatusFieldUpdateOperationsInput | $Enums.ChapterStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7862,6 +7853,7 @@ export namespace Prisma {
   export type ChapterUncheckedUpdateManyWithoutCourseInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
     status?: EnumChapterStatusFieldUpdateOperationsInput | $Enums.ChapterStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

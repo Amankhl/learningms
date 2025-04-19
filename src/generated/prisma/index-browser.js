@@ -129,7 +129,6 @@ exports.Prisma.CourseScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
-  content: 'content',
   videoUrl: 'videoUrl',
   imgUrl: 'imgUrl',
   status: 'status',
@@ -140,6 +139,7 @@ exports.Prisma.CourseScalarFieldEnum = {
 exports.Prisma.ChapterScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  content: 'content',
   status: 'status',
   courseId: 'courseId',
   createdAt: 'createdAt',

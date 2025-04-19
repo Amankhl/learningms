@@ -22,8 +22,8 @@ import { useRouter } from 'next/navigation'
 type FormType = 'login';
 const authFormSchema = (formType: FormType) => {
     return z.object({
-        email: z.string().email(),
-        password: z.string()
+        email: z.string().email("Provide a valid email"),
+        password: z.string().min(6, "Password must be at least 6 characters"),
     })
 }
 
@@ -74,7 +74,7 @@ const Login = ({ type }: { type: FormType }) => {
                             <FormItem>
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="email" {...field} />
+                                    <Input placeholder="email" {...field}  autoComplete="off"/>
                                 </FormControl>
                                 <FormDescription>
                                 </FormDescription>
@@ -89,7 +89,7 @@ const Login = ({ type }: { type: FormType }) => {
                             <FormItem>
                                 <FormLabel>Password</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="password" {...field} />
+                                    <Input placeholder="password" {...field} autoComplete="new-password"/>
                                 </FormControl>
                                 <FormDescription>
                                 </FormDescription>

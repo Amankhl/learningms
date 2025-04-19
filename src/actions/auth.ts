@@ -54,7 +54,7 @@ export async function register({
     name: string;
     email: string;
     password: string;
-    role: 'STUDENT' | 'TEACHER';
+    role: 'STUDENT' | 'EDUCATOR';
   }) {
     try {
       const sql = neon(process.env.DATABASE_URL!);

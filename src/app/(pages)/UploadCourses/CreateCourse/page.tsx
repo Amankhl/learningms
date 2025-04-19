@@ -9,20 +9,19 @@ import axios from 'axios';
 export default function CreateCourse() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [content, setContent] = useState('');
   const [videoUrl, setVideoUrl] = useState('');
   const router = useRouter();
 
   const handleSubmit = async () => {
     try {
-      await axios.post('/api/courses', {
+      const result = await axios.post('/api/courses', {
         title,
         description,
-        content,
         videoUrl,
       });
+      const id= result.data.id
 
-      router.push('/UploadCourses');
+      router.push(`/UploadCourses/${id}`);
     } catch (error) {
       console.error('Failed to upload course:', error);
       alert('Failed to upload course');
@@ -30,7 +29,7 @@ export default function CreateCourse() {
   };
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
+    <div className="p-6 max-w-xl mx-auto min-h-[90%]">
       <h1 className="text-2xl font-bold mb-4">Create a New Course</h1>
       <Input
         value={title}
@@ -48,12 +47,6 @@ export default function CreateCourse() {
         value={description}
         onChange={e => setDescription(e.target.value)}
         placeholder="Short description"
-      />
-      <Textarea
-        className="mt-4 h-40"
-        value={content}
-        onChange={e => setContent(e.target.value)}
-        placeholder="Course Content (Markdown/HTML)"
       />
       <Button className="mt-6 w-full" onClick={handleSubmit}>
         Upload Course

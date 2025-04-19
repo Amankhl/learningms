@@ -10,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from 'next/link';
 
 
 
@@ -22,7 +23,6 @@ const CourseEditor = () => {
     id: number;
     title: string;
     description: string;
-    content: string;
     videoUrl?: string;
     imgUrl?: string;
     status: string;
@@ -52,7 +52,6 @@ const CourseEditor = () => {
       await axios.put(`/api/courses/${courseId}`, {
         title: course?.title,
         description: course?.description,
-        content: course?.content,
         videoUrl: course?.videoUrl,
         imgUrl: course?.imgUrl,
         status: course?.status,
@@ -78,10 +77,13 @@ const CourseEditor = () => {
         <Button variant="default" onClick={handleUpdateCourse}>Publish Changes</Button>
       </header>
 
-      <div className="flex space-x-4 mb-4">
-        {['Settings', 'Curriculum', 'Preview'].map((tab) => (
+      <div className="flex space-x-4 mb-4 w-full justify-between">
+        {['Preview'].map((tab) => (
           <Button key={tab} variant="ghost" className="text-gray-600">{tab}</Button>
         ))}
+        <Link href={`/UploadCourses/${courseId}/AddChapter`}>
+        <Button>Add Chapter</Button>
+        </Link>
       </div>
 
       {/* Curriculum Section */}
@@ -99,39 +101,47 @@ const CourseEditor = () => {
                       {chapter.status}
                     </span>
                     {confirmDeleteId === chapter.id ? (
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        onClick={async () => {
-                          try {
-                            await axios.delete(`/api/courses/${chapter.id}`);
-                            setCourse((prev) => ({
-                              ...prev!,
-                              chapters: prev!.chapters.filter((c) => c.id !== chapter.id),
-                            }));
-                            setConfirmDeleteId(null);
-                          } catch (err) {
-                            console.error('Failed to delete chapter:', err);
-                            alert('Failed to delete chapter.');
-                          }
-                        }}
-                      >
-                        Confirm
-                      </Button>
+                      <div className="flex space-x-2">
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={async () => {
+                            try {
+                              await axios.delete(`/api/courses/${chapter.id}`);
+                              setCourse((prev) => ({
+                                ...prev!,
+                                chapters: prev!.chapters.filter((c) => c.id !== chapter.id),
+                              }));
+                              setConfirmDeleteId(null);
+                            } catch (err) {
+                              console.error('Failed to delete chapter:', err);
+                              alert('Failed to delete chapter.');
+                            }
+                          }}
+                        >
+                          Confirm
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setConfirmDeleteId(null)}
+                        >
+                          Cancel
+                        </Button>
+                      </div>
                     ) : (
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <MoreVertical className="cursor-pointer w-5 h-5" />
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="w-32">
+                          <Link href={`/UploadCourses/${courseId}/EditChapter/${chapter.id}`}>
                           <DropdownMenuItem
-                            onClick={() =>
-                              router.push(`/educator/courses/${courseId}/chapters/${chapter.id}/edit`)
-                            }
                             className="cursor-pointer"
-                          >
+                            >
                             Edit
                           </DropdownMenuItem>
+                            </Link>
                           <DropdownMenuItem
                             onClick={() => setConfirmDeleteId(chapter.id)}
                             className="text-red-600 cursor-pointer"

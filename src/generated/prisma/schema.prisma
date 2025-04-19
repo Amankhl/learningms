@@ -35,7 +35,6 @@ model Course {
   id          Int          @id @default(autoincrement())
   title       String
   description String
-  content     String // written content (Markdown/HTML)
   videoUrl    String?
   imgUrl      String?
   status      CourseStatus @default(DRAFT)
@@ -56,6 +55,7 @@ enum CourseStatus {
 model Chapter {
   id        Int           @id @default(autoincrement())
   title     String
+  content   String
   status    ChapterStatus @default(DRAFT)
   course    Course        @relation(fields: [courseId], references: [id])
   courseId  Int

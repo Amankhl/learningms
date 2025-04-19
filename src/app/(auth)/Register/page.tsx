@@ -30,12 +30,14 @@ import { useRouter } from 'next/navigation'
 type FormType = 'register';
 const authFormSchema = (formType: FormType) => {
   return z.object({
-    name: z.string(),
-    email: z.string().email(),
-    role: z.enum(['STUDENT', 'TEACHER']),
-    password: z.string()
-  })
-}
+    name: z.string().min(3, "Name is required"),
+    email: z.string().email("Invalid email"),
+    role: z.enum(["STUDENT", "EDUCATOR"], {
+      required_error: "Role is required",
+    }),
+    password: z.string().min(6, "Password must be at least 6 characters"),
+  });
+};
 const Register = ({ type }: { type: FormType }) => {
   const router = useRouter()
   const [loading, setLoading] = useState<boolean>(false)
@@ -87,7 +89,7 @@ const Register = ({ type }: { type: FormType }) => {
               <FormItem>
                 <FormLabel>Enter your name</FormLabel>
                 <FormControl>
-                  <Input placeholder="John Doe" {...field} />
+                  <Input placeholder="John Doe" {...field} autoComplete="off"/>
                 </FormControl>
                 <FormDescription>
                 </FormDescription>
@@ -102,7 +104,7 @@ const Register = ({ type }: { type: FormType }) => {
               <FormItem>
                 <FormLabel>Enter your email</FormLabel>
                 <FormControl>
-                  <Input placeholder="example@gmail.com" {...field} />
+                  <Input placeholder="example@gmail.com" {...field} autoComplete="off"/>
                 </FormControl>
                 <FormDescription>
                 </FormDescription>
@@ -124,7 +126,7 @@ const Register = ({ type }: { type: FormType }) => {
                   </FormControl>
                   <SelectContent>
                     <SelectItem value="STUDENT">Student</SelectItem>
-                    <SelectItem value="TEACHER">Teacher</SelectItem>
+                    <SelectItem value="EDUCATOR">Educator</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -139,7 +141,7 @@ const Register = ({ type }: { type: FormType }) => {
               <FormItem>
                 <FormLabel>Set password</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} />
+                  <Input placeholder="" {...field} autoComplete="new-password"/>
                 </FormControl>
                 <FormDescription>
                 </FormDescription>

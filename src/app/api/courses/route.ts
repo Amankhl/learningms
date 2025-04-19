@@ -4,6 +4,8 @@ import { getUserFromServer } from '@/actions/profile';
 
 const sql = neon(process.env.DATABASE_URL!);
 
+
+// /api/courses  - UploadCourses/page.tsx
 export async function GET() {
     try {
       const user = getUserFromServer();
@@ -14,7 +16,7 @@ export async function GET() {
   
       const result = await sql`
         SELECT 
-          c.id, c.title, c.description, c.content, c."videoUrl", c."imgUrl", c.status, c."createdAt",
+          c.id, c.title, c.description, c."videoUrl", c."imgUrl", c.status, c."createdAt",
           u.name as educatorName
         FROM "Course" c
         JOIN "User" u ON c."educatorId" = u.id
@@ -30,7 +32,7 @@ export async function GET() {
   }  
 
 
-
+// /api/courses  - /UploadCourses/CreateCourse/page.tsx - Post
 export async function POST(req: Request) {
   try {
     const user = getUserFromServer();
@@ -39,16 +41,16 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { title, description, content, videoUrl } = await req.json();
+    const { title, description, videoUrl } = await req.json();
 
-    if (!title || !description || !content) {
+    if (!title || !description) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
     const result = await sql`
-      INSERT INTO "Course" (title, description, content, "videoUrl", "educatorId")
-      VALUES (${title}, ${description}, ${content}, ${videoUrl}, ${user.id})
-      RETURNING id, title, description, content, "videoUrl", "createdAt"
+      INSERT INTO "Course" (title, description, "videoUrl", "educatorId")
+      VALUES (${title}, ${description}, ${videoUrl}, ${user.id})
+      RETURNING id, title, description, "videoUrl", "createdAt"
     `;
 
     return NextResponse.json(result[0]);
