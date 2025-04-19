@@ -14,7 +14,7 @@ type Course = {
 
 export const UploadedCourseCard = ({ id, title, description, instructor, status, img, createdAt }: Course) => (
 
-    <Link className='w-[30%]' href={`/UploadCourses/${id}`}>
+    <Link className='w-[30%] max-md:w-[100%]' href={`/UploadCourses/${id}`}>
         <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
             {img && img.length > 1 ? <Image src={img} alt='image' height={500} width={500} />
                 : ''

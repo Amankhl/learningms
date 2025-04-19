@@ -10,7 +10,7 @@ import { useProfile } from '@/context/ProfileContext';
 const HomePage = () => {
 
   const user = useProfile();
-  console.log(user)
+  // console.log(user)
 
   return (
     <div className="w-full">
