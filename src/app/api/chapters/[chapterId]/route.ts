@@ -15,7 +15,7 @@ export async function GET(
   }
 
   const chapter = await sql`
-    SELECT id, title, status, content FROM "Chapter" WHERE id = ${id}
+    SELECT id, title, status, content, "chapNum" FROM "Chapter" WHERE id = ${id}
   `;
 
   if (!chapter.length) {
@@ -37,12 +37,12 @@ export async function PUT(
   }
 
   const body = await req.json();
-  const { title, status } = body;
+  const { title, status, content, chapNum } = body;
 
   try {
     await sql`
       UPDATE "Chapter"
-      SET title = ${title}, status = ${status}
+      SET title = ${title}, status = ${status}, "chapNum" = ${chapNum}, content=${content}
       WHERE id = ${id}
     `;
     return NextResponse.json({ success: true });

@@ -14,6 +14,7 @@ const AddChapter = () => {
     const [title, setTitle] = useState('');
     const [status, setStatus] = useState<'DRAFT' | 'PUBLISHED'>('DRAFT');
     const [content, setContent] = useState('');
+    const [chapNum, setChapNum] = useState<number>()
     const [loading, setLoading] = useState(false);
 
     const handleUpdate = async () => {
@@ -22,7 +23,8 @@ const AddChapter = () => {
             await axios.post(`/api/courses/${courseId}`, {
                 title,
                 status,
-                content
+                content,
+                chapNum
             });
             // alert('Chapter Added!');
             router.refresh();
@@ -39,9 +41,15 @@ const AddChapter = () => {
     return (
         <div className="max-w-xl mx-auto p-6 space-y-4 min-h-[85%]">
             <div className='w-full flex justify-between'>
-                <h1 className="text-xl font-semibold mb-4">Edit Chapter</h1>
-                <Button onClick={() => router.refresh()}>Reload</Button>
+                <h1 className="text-xl font-semibold mb-4">Add Chapter</h1>
+                {/* <Button onClick={() => router.refresh()}>Reload</Button> */}
             </div>
+            <Input
+                type="number"
+                value={chapNum}
+                onChange={(e) => setChapNum(Number(e.target.value))}
+                placeholder="Chapter Number"
+            />
             <Input
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}

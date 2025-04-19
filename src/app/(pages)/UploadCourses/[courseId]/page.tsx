@@ -26,7 +26,10 @@ const CourseEditor = () => {
     videoUrl?: string;
     imgUrl?: string;
     status: string;
-    chapters: { id: number; title: string; status: string }[];
+    chapters: {
+      id: number; chapNum: number;
+      title: string; status: string
+    }[];
   } | null>(null);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -63,14 +66,14 @@ const CourseEditor = () => {
   };
 
   if (isLoading || !course) {
-    return <p className="p-6">Loading course...</p>;
+    return <p className="p-6 w-full min-h-[89%] text-center">Loading course...</p>;
   }
 
   return (
     <main className="w-full min-h-[89%] p-6">
       <div className='w-full flex justify-between'>
         <h1 className='font-medium text-2xl mb-6 underline'>{course.title}</h1>
-        <p className='text-[#605f5f]'>{course.status}</p>
+        <p className={`${course.status === 'DRAFT' ? 'text-[#605f5f]' : 'text-[#2fe459]'}`}>{course.status}</p>
       </div>
       <header className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-semibold">Edit Course</h2>
@@ -82,7 +85,7 @@ const CourseEditor = () => {
           <Button key={tab} variant="ghost" className="text-gray-600">{tab}</Button>
         ))}
         <Link href={`/UploadCourses/${courseId}/AddChapter`}>
-        <Button>Add Chapter</Button>
+          <Button>Add Chapter</Button>
         </Link>
       </div>
 
@@ -93,7 +96,8 @@ const CourseEditor = () => {
             course?.chapters?.map((chapter) => (
               <div key={chapter.id} className="mb-6">
                 <div className="flex justify-between items-center py-2 px-4 border-b">
-                  <div>
+                  <div className='flex gap-2 items-center'>
+                    <p className='text-[#000]'>{chapter.chapNum}</p>
                     <h3 className="text-lg font-medium">{chapter.title}</h3>
                   </div>
                   <div className="flex items-center space-x-4">
@@ -136,12 +140,12 @@ const CourseEditor = () => {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="w-32">
                           <Link href={`/UploadCourses/${courseId}/EditChapter/${chapter.id}`}>
-                          <DropdownMenuItem
-                            className="cursor-pointer"
+                            <DropdownMenuItem
+                              className="cursor-pointer"
                             >
-                            Edit
-                          </DropdownMenuItem>
-                            </Link>
+                              Edit
+                            </DropdownMenuItem>
+                          </Link>
                           <DropdownMenuItem
                             onClick={() => setConfirmDeleteId(chapter.id)}
                             className="text-red-600 cursor-pointer"

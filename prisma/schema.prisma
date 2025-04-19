@@ -54,6 +54,7 @@ enum CourseStatus {
 
 model Chapter {
   id        Int     @id @default(autoincrement())
+  chapNum   Int?
   title     String
   content   String
   status    ChapterStatus @default(DRAFT)

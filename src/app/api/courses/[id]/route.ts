@@ -25,7 +25,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
 
         const course = courseResult[0];
 
-        const chaptersResult = await sql`SELECT id, title, status, "createdAt", "updatedAt" FROM "Chapter" WHERE "courseId" = ${courseId} ORDER BY "createdAt" ASC `;
+        const chaptersResult = await sql`SELECT id, title, status, "createdAt", "updatedAt", "chapNum" FROM "Chapter" WHERE "courseId" = ${courseId} ORDER BY "createdAt" ASC `;
         // console.log(chaptersResult)
 
         const courseWithChapters = {
@@ -106,13 +106,13 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
     }
     const now = new Date();
     const body = await req.json();
-    const { title, status, content } = body;
+    const { title, status, content, chapNum } = body;
   
     try {
       await sql`
-        INSERT INTO "Chapter" (title, status, content, "courseId", "updatedAt")
-        VALUES (${title}, ${status}, ${content}, ${id}, ${now})
-        RETURNING id, title, "courseId"
+        INSERT INTO "Chapter" (title, status, content, "courseId", "updatedAt", "chapNum")
+        VALUES (${title}, ${status}, ${content}, ${id}, ${now}, ${Number(chapNum)})
+        RETURNING id, title, "courseId", "chapNum"
       `;
       return NextResponse.json({ success: true });
     } catch (error) {

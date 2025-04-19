@@ -3607,16 +3607,19 @@ export namespace Prisma {
 
   export type ChapterAvgAggregateOutputType = {
     id: number | null
+    chapNum: number | null
     courseId: number | null
   }
 
   export type ChapterSumAggregateOutputType = {
     id: number | null
+    chapNum: number | null
     courseId: number | null
   }
 
   export type ChapterMinAggregateOutputType = {
     id: number | null
+    chapNum: number | null
     title: string | null
     content: string | null
     status: $Enums.ChapterStatus | null
@@ -3627,6 +3630,7 @@ export namespace Prisma {
 
   export type ChapterMaxAggregateOutputType = {
     id: number | null
+    chapNum: number | null
     title: string | null
     content: string | null
     status: $Enums.ChapterStatus | null
@@ -3637,6 +3641,7 @@ export namespace Prisma {
 
   export type ChapterCountAggregateOutputType = {
     id: number
+    chapNum: number
     title: number
     content: number
     status: number
@@ -3649,16 +3654,19 @@ export namespace Prisma {
 
   export type ChapterAvgAggregateInputType = {
     id?: true
+    chapNum?: true
     courseId?: true
   }
 
   export type ChapterSumAggregateInputType = {
     id?: true
+    chapNum?: true
     courseId?: true
   }
 
   export type ChapterMinAggregateInputType = {
     id?: true
+    chapNum?: true
     title?: true
     content?: true
     status?: true
@@ -3669,6 +3677,7 @@ export namespace Prisma {
 
   export type ChapterMaxAggregateInputType = {
     id?: true
+    chapNum?: true
     title?: true
     content?: true
     status?: true
@@ -3679,6 +3688,7 @@ export namespace Prisma {
 
   export type ChapterCountAggregateInputType = {
     id?: true
+    chapNum?: true
     title?: true
     content?: true
     status?: true
@@ -3776,6 +3786,7 @@ export namespace Prisma {
 
   export type ChapterGroupByOutputType = {
     id: number
+    chapNum: number | null
     title: string
     content: string
     status: $Enums.ChapterStatus
@@ -3805,6 +3816,7 @@ export namespace Prisma {
 
   export type ChapterSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    chapNum?: boolean
     title?: boolean
     content?: boolean
     status?: boolean
@@ -3816,6 +3828,7 @@ export namespace Prisma {
 
   export type ChapterSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    chapNum?: boolean
     title?: boolean
     content?: boolean
     status?: boolean
@@ -3827,6 +3840,7 @@ export namespace Prisma {
 
   export type ChapterSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    chapNum?: boolean
     title?: boolean
     content?: boolean
     status?: boolean
@@ -3838,6 +3852,7 @@ export namespace Prisma {
 
   export type ChapterSelectScalar = {
     id?: boolean
+    chapNum?: boolean
     title?: boolean
     content?: boolean
     status?: boolean
@@ -3846,7 +3861,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type ChapterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "status" | "courseId" | "createdAt" | "updatedAt", ExtArgs["result"]["chapter"]>
+  export type ChapterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "chapNum" | "title" | "content" | "status" | "courseId" | "createdAt" | "updatedAt", ExtArgs["result"]["chapter"]>
   export type ChapterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     course?: boolean | CourseDefaultArgs<ExtArgs>
   }
@@ -3864,6 +3879,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
+      chapNum: number | null
       title: string
       content: string
       status: $Enums.ChapterStatus
@@ -4295,6 +4311,7 @@ export namespace Prisma {
    */
   interface ChapterFieldRefs {
     readonly id: FieldRef<"Chapter", 'Int'>
+    readonly chapNum: FieldRef<"Chapter", 'Int'>
     readonly title: FieldRef<"Chapter", 'String'>
     readonly content: FieldRef<"Chapter", 'String'>
     readonly status: FieldRef<"Chapter", 'ChapterStatus'>
@@ -5851,6 +5868,7 @@ export namespace Prisma {
 
   export const ChapterScalarFieldEnum: {
     id: 'id',
+    chapNum: 'chapNum',
     title: 'title',
     content: 'content',
     status: 'status',
@@ -6145,6 +6163,7 @@ export namespace Prisma {
     OR?: ChapterWhereInput[]
     NOT?: ChapterWhereInput | ChapterWhereInput[]
     id?: IntFilter<"Chapter"> | number
+    chapNum?: IntNullableFilter<"Chapter"> | number | null
     title?: StringFilter<"Chapter"> | string
     content?: StringFilter<"Chapter"> | string
     status?: EnumChapterStatusFilter<"Chapter"> | $Enums.ChapterStatus
@@ -6156,6 +6175,7 @@ export namespace Prisma {
 
   export type ChapterOrderByWithRelationInput = {
     id?: SortOrder
+    chapNum?: SortOrderInput | SortOrder
     title?: SortOrder
     content?: SortOrder
     status?: SortOrder
@@ -6170,6 +6190,7 @@ export namespace Prisma {
     AND?: ChapterWhereInput | ChapterWhereInput[]
     OR?: ChapterWhereInput[]
     NOT?: ChapterWhereInput | ChapterWhereInput[]
+    chapNum?: IntNullableFilter<"Chapter"> | number | null
     title?: StringFilter<"Chapter"> | string
     content?: StringFilter<"Chapter"> | string
     status?: EnumChapterStatusFilter<"Chapter"> | $Enums.ChapterStatus
@@ -6181,6 +6202,7 @@ export namespace Prisma {
 
   export type ChapterOrderByWithAggregationInput = {
     id?: SortOrder
+    chapNum?: SortOrderInput | SortOrder
     title?: SortOrder
     content?: SortOrder
     status?: SortOrder
@@ -6199,6 +6221,7 @@ export namespace Prisma {
     OR?: ChapterScalarWhereWithAggregatesInput[]
     NOT?: ChapterScalarWhereWithAggregatesInput | ChapterScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Chapter"> | number
+    chapNum?: IntNullableWithAggregatesFilter<"Chapter"> | number | null
     title?: StringWithAggregatesFilter<"Chapter"> | string
     content?: StringWithAggregatesFilter<"Chapter"> | string
     status?: EnumChapterStatusWithAggregatesFilter<"Chapter"> | $Enums.ChapterStatus
@@ -6406,6 +6429,7 @@ export namespace Prisma {
   }
 
   export type ChapterCreateInput = {
+    chapNum?: number | null
     title: string
     content: string
     status?: $Enums.ChapterStatus
@@ -6416,6 +6440,7 @@ export namespace Prisma {
 
   export type ChapterUncheckedCreateInput = {
     id?: number
+    chapNum?: number | null
     title: string
     content: string
     status?: $Enums.ChapterStatus
@@ -6425,6 +6450,7 @@ export namespace Prisma {
   }
 
   export type ChapterUpdateInput = {
+    chapNum?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     status?: EnumChapterStatusFieldUpdateOperationsInput | $Enums.ChapterStatus
@@ -6435,6 +6461,7 @@ export namespace Prisma {
 
   export type ChapterUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
+    chapNum?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     status?: EnumChapterStatusFieldUpdateOperationsInput | $Enums.ChapterStatus
@@ -6445,6 +6472,7 @@ export namespace Prisma {
 
   export type ChapterCreateManyInput = {
     id?: number
+    chapNum?: number | null
     title: string
     content: string
     status?: $Enums.ChapterStatus
@@ -6454,6 +6482,7 @@ export namespace Prisma {
   }
 
   export type ChapterUpdateManyMutationInput = {
+    chapNum?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     status?: EnumChapterStatusFieldUpdateOperationsInput | $Enums.ChapterStatus
@@ -6463,6 +6492,7 @@ export namespace Prisma {
 
   export type ChapterUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    chapNum?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     status?: EnumChapterStatusFieldUpdateOperationsInput | $Enums.ChapterStatus
@@ -6782,6 +6812,17 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type EnumChapterStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.ChapterStatus | EnumChapterStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ChapterStatus[] | ListEnumChapterStatusFieldRefInput<$PrismaModel>
@@ -6796,6 +6837,7 @@ export namespace Prisma {
 
   export type ChapterCountOrderByAggregateInput = {
     id?: SortOrder
+    chapNum?: SortOrder
     title?: SortOrder
     content?: SortOrder
     status?: SortOrder
@@ -6806,11 +6848,13 @@ export namespace Prisma {
 
   export type ChapterAvgOrderByAggregateInput = {
     id?: SortOrder
+    chapNum?: SortOrder
     courseId?: SortOrder
   }
 
   export type ChapterMaxOrderByAggregateInput = {
     id?: SortOrder
+    chapNum?: SortOrder
     title?: SortOrder
     content?: SortOrder
     status?: SortOrder
@@ -6821,6 +6865,7 @@ export namespace Prisma {
 
   export type ChapterMinOrderByAggregateInput = {
     id?: SortOrder
+    chapNum?: SortOrder
     title?: SortOrder
     content?: SortOrder
     status?: SortOrder
@@ -6831,7 +6876,24 @@ export namespace Prisma {
 
   export type ChapterSumOrderByAggregateInput = {
     id?: SortOrder
+    chapNum?: SortOrder
     courseId?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type EnumChapterStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -7098,6 +7160,14 @@ export namespace Prisma {
     connect?: CourseWhereUniqueInput
   }
 
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type EnumChapterStatusFieldUpdateOperationsInput = {
     set?: $Enums.ChapterStatus
   }
@@ -7315,6 +7385,33 @@ export namespace Prisma {
     not?: NestedEnumChapterStatusFilter<$PrismaModel> | $Enums.ChapterStatus
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumChapterStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.ChapterStatus | EnumChapterStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ChapterStatus[] | ListEnumChapterStatusFieldRefInput<$PrismaModel>
@@ -7458,6 +7555,7 @@ export namespace Prisma {
   }
 
   export type ChapterCreateWithoutCourseInput = {
+    chapNum?: number | null
     title: string
     content: string
     status?: $Enums.ChapterStatus
@@ -7467,6 +7565,7 @@ export namespace Prisma {
 
   export type ChapterUncheckedCreateWithoutCourseInput = {
     id?: number
+    chapNum?: number | null
     title: string
     content: string
     status?: $Enums.ChapterStatus
@@ -7554,6 +7653,7 @@ export namespace Prisma {
     OR?: ChapterScalarWhereInput[]
     NOT?: ChapterScalarWhereInput | ChapterScalarWhereInput[]
     id?: IntFilter<"Chapter"> | number
+    chapNum?: IntNullableFilter<"Chapter"> | number | null
     title?: StringFilter<"Chapter"> | string
     content?: StringFilter<"Chapter"> | string
     status?: EnumChapterStatusFilter<"Chapter"> | $Enums.ChapterStatus
@@ -7820,6 +7920,7 @@ export namespace Prisma {
 
   export type ChapterCreateManyCourseInput = {
     id?: number
+    chapNum?: number | null
     title: string
     content: string
     status?: $Enums.ChapterStatus
@@ -7834,6 +7935,7 @@ export namespace Prisma {
   }
 
   export type ChapterUpdateWithoutCourseInput = {
+    chapNum?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     status?: EnumChapterStatusFieldUpdateOperationsInput | $Enums.ChapterStatus
@@ -7843,6 +7945,7 @@ export namespace Prisma {
 
   export type ChapterUncheckedUpdateWithoutCourseInput = {
     id?: IntFieldUpdateOperationsInput | number
+    chapNum?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     status?: EnumChapterStatusFieldUpdateOperationsInput | $Enums.ChapterStatus
@@ -7852,6 +7955,7 @@ export namespace Prisma {
 
   export type ChapterUncheckedUpdateManyWithoutCourseInput = {
     id?: IntFieldUpdateOperationsInput | number
+    chapNum?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     status?: EnumChapterStatusFieldUpdateOperationsInput | $Enums.ChapterStatus

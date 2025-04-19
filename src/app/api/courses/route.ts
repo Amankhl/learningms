@@ -41,16 +41,16 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { title, description, videoUrl } = await req.json();
+    const { title, description, imgUrl } = await req.json();
 
     if (!title || !description) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
     const result = await sql`
-      INSERT INTO "Course" (title, description, "videoUrl", "educatorId")
-      VALUES (${title}, ${description}, ${videoUrl}, ${user.id})
-      RETURNING id, title, description, "videoUrl", "createdAt"
+      INSERT INTO "Course" (title, description, "imgUrl", "educatorId")
+      VALUES (${title}, ${description}, ${imgUrl}, ${user.id})
+      RETURNING id, title, description, "imgUrl", "createdAt"
     `;
 
     return NextResponse.json(result[0]);
