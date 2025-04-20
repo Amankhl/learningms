@@ -154,6 +154,13 @@ exports.Prisma.EnrollmentScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.AttendanceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  isPresent: 'isPresent'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -189,7 +196,8 @@ exports.Prisma.ModelName = {
   User: 'User',
   Course: 'Course',
   Chapter: 'Chapter',
-  Enrollment: 'Enrollment'
+  Enrollment: 'Enrollment',
+  Attendance: 'Attendance'
 };
 
 /**

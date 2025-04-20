@@ -76,3 +76,81 @@ try {
   console.log("profileDetails error: ",error)
 }
 }
+
+
+export const markAttendance = async (): Promise<{
+  success: boolean
+  message?: string
+  data?: any
+}> => {
+  try {
+    const user = await getUserFromServer()
+    if (!user || !['STUDENT', 'ADMIN', 'EDUCATOR'].includes(user.role)) {
+      return { success: false, message: 'Unauthorized' }
+    }
+
+    const sql = neon(process.env.DATABASE_URL!)
+
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
+    // Step 1: Check if attendance already exists
+    const result = await sql`
+  SELECT * FROM "Attendance"
+  WHERE "userId" = ${user.id} AND "date" >= ${today.toISOString()}
+`
+
+    if (result.length > 0) {
+      return {
+        success: true,
+        message: 'Already marked',
+        data: result[0]
+      }
+    }
+
+    // Step 2: Insert new attendance record
+    const insertResult = await sql`
+      INSERT INTO "Attendance" ("userId")
+      VALUES (${user.id})
+      RETURNING *
+    `
+
+    return {
+      success: true,
+      message: 'Attendance marked',
+      data: insertResult[0]
+    }
+  } catch (error) {
+    console.error('markAttendance error:', error)
+    return {
+      success: false,
+      message: 'Internal server error'
+    }
+  }
+}
+
+
+
+export const getUserAttendance = async () => {
+  const user = await getUserFromServer();
+  if (!user || !['STUDENT', 'ADMIN', 'EDUCATOR'].includes(user.role)) {
+    return [];
+  }
+
+  const sql = neon(process.env.DATABASE_URL!);
+
+  const result = await sql`
+    SELECT 
+      DATE_TRUNC('month', "date") as month,
+      COUNT(*) as days_present
+    FROM "Attendance"
+    WHERE "userId" = ${user.id} AND "isPresent" = true
+    GROUP BY month
+    ORDER BY month ASC
+  `;
+
+  return result.map((row) => ({
+    month: new Date(row.month).toLocaleString('default', { month: 'long' }),
+    daysPresent: Number(row.days_present),
+  }));
+};

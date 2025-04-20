@@ -31,7 +31,7 @@ export async function login({ email, password }: { email: string, password: stri
         }
         // console.log(tokenData)
         const token = jwt.sign(tokenData, process.env.TOKEN_SECRET!, { expiresIn: "1d" })
-        const response = { success: true, message: 'Login successful' };
+        const response:{success: boolean; message: string; role: string} = { success: true, message: 'Login successful', role: dbUser.role };
         const cookieStore = await cookies()
         cookieStore.set("lms-token", token, {
             httpOnly: true,
@@ -41,7 +41,7 @@ export async function login({ email, password }: { email: string, password: stri
         return response;
     } catch (error) {
         console.error("Failed to login ", error);
-        return { success: false, message: "Failed to login. " + (error as Error).message, error };
+        return { success: false, message: "Failed to login.", role: "error getting the role" + (error as Error).message, error };
     }
 }
 

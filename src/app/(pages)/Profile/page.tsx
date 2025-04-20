@@ -8,7 +8,7 @@ import { CartesianGrid, LabelList, Line, LineChart, XAxis } from 'recharts';
 import { TrendingUp } from 'lucide-react';
 import { useProfile } from '@/context/ProfileContext';
 import { useRouter } from 'next/navigation';
-import { profileDetails, User } from '@/actions/users';
+import { getUserAttendance, profileDetails, User } from '@/actions/users';
 import { EnrolledCourse, getEnrolledCourses } from '@/actions/courses';
 
 const chartData = [
@@ -21,8 +21,8 @@ const chartData = [
 ];
 
 const chartConfig = {
-  hours: {
-    label: 'Hours Learned',
+  daysPresent: {
+    label: 'Days Present',
     color: 'hsl(var(--chart-1))',
   },
 } satisfies ChartConfig;
@@ -49,6 +49,7 @@ const Profile = () => {
   const [isPending, startTransition] = useTransition();
   const [me, setMe] = useState<User | any>(null)
   const [courses, setCourses] = useState<EnrolledCourse[]>([])
+  const [chartData, setChartData] = useState<{ month: string; daysPresent: number }[]>([]);
 
   if (!user) {
     router.push('/Login')
@@ -62,6 +63,9 @@ const Profile = () => {
       } else {
         setMe(null);
       }
+      const attendance = await getUserAttendance();
+      console.log(attendance)
+      setChartData(attendance);
     };
     const fetchCourses = async () => {
       const result = await getEnrolledCourses()
@@ -115,7 +119,7 @@ const Profile = () => {
               courses.map((course) => (
                 <li key={course.id} className="flex justify-between items-center border-b pb-2">
                   <span>{course.title}</span>
-                  <Button variant="link" onClick={() => alert(`Navigating to course ${course.id}`)}>View Course</Button>
+                  <Button variant="link" onClick={() => router.push(`/Courses/${course.id}`)}>View Course</Button>
                 </li>
               ))
             )}
@@ -133,11 +137,7 @@ const Profile = () => {
           </CardHeader>
           <CardContent>
             <ChartContainer config={chartConfig}>
-              <LineChart
-                accessibilityLayer
-                data={chartData}
-                margin={{ top: 20, left: 12, right: 12 }}
-              >
+              <LineChart data={chartData} margin={{ top: 20, left: 12, right: 12 }}>
                 <CartesianGrid vertical={false} />
                 <XAxis
                   dataKey="month"
@@ -151,7 +151,7 @@ const Profile = () => {
                   content={<ChartTooltipContent indicator="line" />}
                 />
                 <Line
-                  dataKey="hours"
+                  dataKey="daysPresent"
                   type="natural"
                   stroke="var(--color-desktop)"
                   strokeWidth={2}
@@ -159,15 +159,7 @@ const Profile = () => {
                     fill: "var(--color-desktop)",
                   }}
                   activeDot={{ r: 6 }}
-                >
-                  <LabelList
-                    dataKey="streak"
-                    position="top"
-                    offset={12}
-                    className="fill-foreground"
-                    fontSize={12}
-                  />
-                </Line>
+                />
               </LineChart>
             </ChartContainer>
           </CardContent>
