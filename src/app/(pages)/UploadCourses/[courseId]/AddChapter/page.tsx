@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
+import TextEditor from '@/components/TextEditor';
 
 const AddChapter = () => {
     const { courseId } = useParams();
@@ -39,41 +40,43 @@ const AddChapter = () => {
     if (loading) return <div className="p-6 text-center min-h-[85%]">Loading...</div>;
 
     return (
-        <div className="max-w-xl mx-auto p-6 space-y-4 min-h-[85%]">
-            <div className='w-full flex justify-between'>
-                <h1 className="text-xl font-semibold mb-4">Add Chapter</h1>
-                {/* <Button onClick={() => router.refresh()}>Reload</Button> */}
+        <div className="w-full min-h-screen p-6 space-y-6 bg-gray-50">
+            <div className='flex justify-between items-center'>
+                <h1 className="text-2xl font-bold">Add Chapter</h1>
             </div>
-            <Input
-                type="number"
-                value={chapNum}
-                onChange={(e) => setChapNum(Number(e.target.value))}
-                placeholder="Chapter Number"
-            />
-            <Input
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="Chapter Title"
-            />
 
-            <Select value={status} onValueChange={(val) => setStatus(val as 'DRAFT' | 'PUBLISHED')}>
-                <SelectTrigger>
-                    <SelectValue placeholder="Select Status" />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectItem value="DRAFT">Draft</SelectItem>
-                    <SelectItem value="PUBLISHED">Published</SelectItem>
-                </SelectContent>
-            </Select>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Input
+                    type="number"
+                    value={chapNum}
+                    onChange={(e) => setChapNum(Number(e.target.value))}
+                    placeholder="Chapter Number"
+                />
+                <Input
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Chapter Title"
+                />
+                <Select value={status} onValueChange={(val) => setStatus(val as 'DRAFT' | 'PUBLISHED')}>
+                    <SelectTrigger>
+                        <SelectValue placeholder="Select Status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="DRAFT">Draft</SelectItem>
+                        <SelectItem value="PUBLISHED">Published</SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
 
-            <textarea
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                placeholder="Chapter Content"
-                className="w-full border rounded p-2 min-h-[150px]"
-            />
+            <div className="w-full">
+                <TextEditor content={content} setContent={setContent} />
+            </div>
 
-            <Button onClick={handleUpdate}>Create</Button>
+            <div className="w-full flex justify-end">
+                <Button onClick={handleUpdate} className="w-full md:w-auto">
+                    Create
+                </Button>
+            </div>
         </div>
     );
 };

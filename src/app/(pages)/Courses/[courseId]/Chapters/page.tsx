@@ -17,6 +17,7 @@ export default function ChaptersPage({ params }: { params: { courseId: string } 
     async function fetchChapters() {
       setLoading(true);
       const res = await getPaginatedChapters(Number(params.courseId), page, pageSize);
+      console.log(res)
       setChapters(res.chapters);
       setTotal(res.total);
       setLoading(false);
@@ -25,23 +26,27 @@ export default function ChaptersPage({ params }: { params: { courseId: string } 
   }, [page, params.courseId]);
 
   return (
-    <div className="py-6 max-w-3xl mx-auto w-full min-h-[90%]">
+    <div className="py-6 w-full min-h-[90%] px-2">
       <h2 className="text-3xl font-bold mb-6">Course Chapters</h2>
 
       {loading ? (
         <Skeleton className="w-full min-h-96 rounded-xl" />
-      ) : (     
+      ) : (
         chapters.map((chap) => (
-          <Card key={chap.id} className="mb-6 w-full shadow-md min-h-96">
+          <Card key={chap.id} className="mb-6 w-full min-h-96 shadow-md">
             <CardContent className="p-6 space-y-2">
-              <h3 className="text-xl font-semibold">{chap.title}</h3>
-              <p className="text-muted-foreground">{chap.content}</p>
+              <h3 className="text-xl font-semibold">Chapter: {chap.title}</h3>
+              <p className="border mb-4"></p>
+              <div
+                className="prose prose-sm max-w-none text-muted-foreground"
+                dangerouslySetInnerHTML={{ __html: chap.content }}
+              />
             </CardContent>
           </Card>
         ))
       )}
 
-      <div className="flex justify-between mt-8">
+      <div className="flex justify-between mt-8 px-20">
         <Button variant="outline" disabled={page === 1} onClick={() => setPage((p) => p - 1)}>
           Previous
         </Button>

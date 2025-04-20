@@ -6,8 +6,12 @@ import axios from 'axios';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
+import dynamic from 'next/dynamic';
 
 const EditChapter = () => {
+  const TextEditor = dynamic(() => import('@/components/TextEditor'), {
+    ssr: false,
+  });
   const { courseId, chapterId } = useParams();
   const router = useRouter();
 
@@ -21,7 +25,7 @@ const EditChapter = () => {
     const fetchChapter = async () => {
       try {
         const res = await axios.get(`/api/chapters/${chapterId}`);
-        // console.log(res)
+        console.log(res)
         setTitle(res.data.title);
         setContent(res.data.content);
         setStatus(res.data.status);
@@ -55,7 +59,7 @@ const EditChapter = () => {
   if (loading) return <div className="p-6 text-center min-h-[85%]">Loading...</div>;
 
   return (
-    <div className="max-w-xl mx-auto p-6 space-y-4 min-h-[85%]">
+    <div className="w-full p-6 space-y-4 min-h-[85%]">
       <div className='w-full flex justify-between'>
         <h1 className="text-xl font-semibold mb-4">Edit Chapter</h1>
         {/* <Button onClick={() => router.refresh()}>Reload</Button> */}
@@ -82,12 +86,9 @@ const EditChapter = () => {
         </SelectContent>
       </Select>
 
-      <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        placeholder="Chapter Content"
-        className="w-full border rounded p-2 min-h-[150px]"
-      />
+      <div className="w-full">
+        <TextEditor content={content} setContent={setContent} />
+      </div>
 
       <Button onClick={handleUpdate}>Save Changes</Button>
     </div>

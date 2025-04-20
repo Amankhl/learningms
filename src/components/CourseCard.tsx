@@ -21,8 +21,8 @@ export const CourseCard = ({ id, title, description, educatorname, imgUrl, creat
       <p className="text-gray-600 mb-4">{description}</p>
       <p className="text-sm text-gray-500 mb-4">Instructor: {educatorname}</p>
       <div className='w-full flex justify-between items-center'>
-        <Button variant='secondary'>
-          Enroll
+        <Button variant='default'>
+          Go to course
         </Button>
         <p className='text-sm text-gray-500 mb-4'>{createdAt?.split('T')[0]}</p>
       </div>
