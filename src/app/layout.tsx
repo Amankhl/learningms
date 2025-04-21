@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { deleteSession, getUserFromServer } from "@/actions/profile";
 import ProfileProvider from "@/context/ProfileProvider";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "LMS",
@@ -34,6 +35,7 @@ export default function RootLayout({
       <AppSidebar />
       <main className="flex-1">
         <Navbar />
+        <Breadcrumbs />
         {children}
         <Footer />
       </main>

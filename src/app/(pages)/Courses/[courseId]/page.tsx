@@ -22,6 +22,9 @@ export default function CoursePage({ params }: { params: { courseId: string } })
     const res = await enrollInCourse(Number(params.courseId));
     if (res?.success) {
       setCourse((prev: any) => ({ ...prev, isEnrolled: true }));
+    }else if(res?.success === false){
+      alert("Please login to enroll")
+      router.push('/Login')
     }
   };
 
