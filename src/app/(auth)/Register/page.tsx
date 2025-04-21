@@ -27,8 +27,7 @@ import { useRouter } from 'next/navigation'
 
 
 
-type FormType = 'register';
-const authFormSchema = (formType: FormType) => {
+const authFormSchema = () => {
   return z.object({
     name: z.string().min(3, "Name is required"),
     email: z.string().email("Invalid email"),
@@ -38,12 +37,12 @@ const authFormSchema = (formType: FormType) => {
     password: z.string().min(6, "Password must be at least 6 characters"),
   });
 };
-const Register = ({ type }: { type: FormType }) => {
+const Register = () => {
   const router = useRouter()
   const [loading, setLoading] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
 
-  const formSchema = authFormSchema(type)
+  const formSchema = authFormSchema()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

@@ -20,20 +20,19 @@ import { useRouter } from 'next/navigation'
 import { markAttendance } from '@/actions/users'
 
 
-type FormType = 'login';
-const authFormSchema = (formType: FormType) => {
+const authFormSchema = () => {
     return z.object({
         email: z.string().email("Provide a valid email"),
         password: z.string().min(6, "Password must be at least 6 characters"),
     })
 }
 
-const Login = ({ type }: { type: FormType }) => {
+const Login = () => {
     const router = useRouter()
     const [loading, setLoading] = useState<boolean>(false)
     const [errorMessage, setErrorMessage] = useState<string>('')
 
-    const formSchema = authFormSchema(type)
+    const formSchema = authFormSchema()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
