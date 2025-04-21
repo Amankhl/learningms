@@ -110,3 +110,25 @@ export async function getPaginatedChapters(courseId: number, page = 1, pageSize 
     return { chapters: [], total: 0 };
   }
 }
+
+
+
+export const deleteCourse = async (courseId: number) => {
+  if (isNaN(courseId)) {
+    throw new Error('Invalid course ID');
+  }
+  try {
+    const sql = neon(process.env.DATABASE_URL!);
+
+    await sql`DELETE FROM "Chapter" WHERE "courseId" = ${courseId};`
+
+    await sql`DELETE FROM "Enrollment" WHERE "courseId" = ${courseId};`
+
+    await sql`DELETE FROM "Course" WHERE "id" = ${courseId};`
+
+    return { success: true, message: 'Course and related data deleted successfully.' }
+  } catch (error) {
+    console.error('[DELETE_COURSE_ERROR]', error)
+    return { success: false, message: 'Failed to delete course.' }
+  }
+}

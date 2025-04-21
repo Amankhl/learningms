@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import axios from 'axios';
+import { Label } from '@/components/ui/label';
 
 export default function CreateCourse() {
   const [title, setTitle] = useState('');
@@ -62,6 +63,7 @@ export default function CreateCourse() {
         className="mt-4"
         type="file"
         accept="image/*"
+        placeholder='Upload Banner Image'
         onChange={(e) => {
           const file = e.target.files?.[0];
           if (file) {
@@ -69,6 +71,7 @@ export default function CreateCourse() {
           }
         }}
       />
+      <Label className='text-[#868686]'>Upload banner image</Label>
       <Textarea
         className="mt-4"
         value={description}

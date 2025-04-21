@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from 'next/link';
-
+import { deleteCourse } from '@/actions/courses';
 
 
 const CourseEditor = () => {
@@ -34,6 +34,8 @@ const CourseEditor = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
+  const [confirmDeleteCourse, setConfirmDeleteCourse] = useState(false);
+
 
   useEffect(() => {
     if (!courseId) return;
@@ -77,7 +79,40 @@ const CourseEditor = () => {
       </div>
       <header className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-semibold">Edit Course</h2>
-        <Button variant="default" onClick={handleUpdateCourse}>Publish Changes</Button>
+        <div className='space-x-2'>
+          <Button variant="default" onClick={handleUpdateCourse}>Publish Changes</Button>
+          {confirmDeleteCourse ? (
+            <div className="space-x-2">
+              <Button
+                variant="destructive"
+                onClick={async () => {
+                  const res = await deleteCourse(Number(courseId));
+                  if (res.success) {
+                    router.push('/UploadCourses');
+                  } else {
+                    alert(res.message);
+                  }
+                }}
+              >
+                Confirm
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => setConfirmDeleteCourse(false)}
+              >
+                Cancel
+              </Button>
+            </div>
+          ) : (
+            <Button
+              variant="destructive"
+              onClick={() => setConfirmDeleteCourse(true)}
+            >
+              Delete Course
+            </Button>
+          )}
+
+        </div>
       </header>
 
       <div className="flex space-x-4 mb-4 w-full justify-between">
