@@ -13,9 +13,9 @@ export async function GET() {
       FROM "Course" c
       JOIN "User" u ON c."educatorId" = u.id
       WHERE c."status" = 'PUBLISHED'
-      ORDER BY c."createdAt" DESC;
+      ORDER BY c."createdAt" ASC;
     `;
-    console.log(publishedCourses)
+    // console.log(publishedCourses)
     return NextResponse.json(publishedCourses);
   } catch (error) {
     console.error('[RAW_SQL_COURSES_ERROR]', error);
