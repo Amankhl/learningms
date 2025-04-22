@@ -23,8 +23,8 @@ const HomePage = () => {
           <h1 className="text-5xl font-bold mb-4">Educate and empower students</h1>
           <p className="text-lg mb-6">We craft unmatched learning experience for your students, clients and audience, that drives engagement, retention.</p>
           <div className="flex justify-center gap-4">
-            <Button variant="secondary">Join Now</Button>
-            <Button><Link href='https://github.com/Amankhl'>Github</Link></Button>
+            <Button variant="secondary"><Link href='/Register'>Join Now</Link></Button>
+            <Button><Link href='/Login'>Login</Link></Button>
           </div>
         </div>
       </section>
