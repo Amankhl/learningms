@@ -8,9 +8,6 @@ import { useProfile } from '@/context/ProfileContext';
 
 const learn = [
     { title: 'Courses', url: '/', icon: Inbox },
-    // { title: 'Certifications', url: '#', icon: Calendar },
-    // { title: 'Guides', url: '#', icon: Search },
-    // { title: 'Quiz', url: '#', icon: Settings },
   ];
   const account = [
     { title: 'Settings', url: '#', icon: Settings },
@@ -19,7 +16,6 @@ const learn = [
   const admin = [
     { title: 'Users', url: '/Users', icon: Users },
     { title: 'Upload Course', url: '/UploadCourses', icon: ScrollText },
-    // { title: 'Configurations', url: '#', icon: Cog },
   ];
 
 const AppSidebar = () => {
@@ -53,26 +49,6 @@ const AppSidebar = () => {
                 </SidebarGroupContent>
               </>
             )}
-  
-            {/* {(isStudent || isEducator) && (
-              <>
-                <SidebarGroupLabel>ACCOUNT</SidebarGroupLabel>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    {account && account?.map((item) => (
-                      <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton asChild>
-                          <Link href={item.url} className="flex items-center gap-2">
-                            <item.icon size={18} />
-                            <span className="font-semibold text-[1rem]">{item.title}</span>
-                          </Link>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </>
-            )} */}
   
             {(isEducator || isAdmin) && (
               <>

@@ -23,6 +23,7 @@ const Courses = () => {
       try {
         const res = await axios.get('/api/home/courses');
         setCourses(res.data);
+        console.log(res.data)
       } catch (err) {
         console.error('Failed to load courses:', err);
       }

@@ -3,8 +3,6 @@ import { neon } from '@neondatabase/serverless';
 
 const sql = neon(process.env.DATABASE_URL!);
 
-
-// /page.tsx                /api/home/courses/route.ts
 export async function GET() {
   try {
     const publishedCourses = await sql`
@@ -17,9 +15,7 @@ export async function GET() {
       WHERE c."status" = 'PUBLISHED'
       ORDER BY c."createdAt" DESC;
     `;
-
-    // console.log(publishedCourses)
-
+    console.log(publishedCourses)
     return NextResponse.json(publishedCourses);
   } catch (error) {
     console.error('[RAW_SQL_COURSES_ERROR]', error);
