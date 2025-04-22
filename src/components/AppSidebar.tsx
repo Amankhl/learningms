@@ -8,9 +8,9 @@ import { useProfile } from '@/context/ProfileContext';
 
 const learn = [
     { title: 'Courses', url: '/', icon: Inbox },
-    { title: 'Certifications', url: '#', icon: Calendar },
-    { title: 'Guides', url: '#', icon: Search },
-    { title: 'Quiz', url: '#', icon: Settings },
+    // { title: 'Certifications', url: '#', icon: Calendar },
+    // { title: 'Guides', url: '#', icon: Search },
+    // { title: 'Quiz', url: '#', icon: Settings },
   ];
   const account = [
     { title: 'Settings', url: '#', icon: Settings },
@@ -19,7 +19,7 @@ const learn = [
   const admin = [
     { title: 'Users', url: '/Users', icon: Users },
     { title: 'Upload Course', url: '/UploadCourses', icon: ScrollText },
-    { title: 'Configurations', url: '#', icon: Cog },
+    // { title: 'Configurations', url: '#', icon: Cog },
   ];
 
 const AppSidebar = () => {
@@ -54,12 +54,12 @@ const AppSidebar = () => {
               </>
             )}
   
-            {(isStudent || isEducator) && (
+            {/* {(isStudent || isEducator) && (
               <>
                 <SidebarGroupLabel>ACCOUNT</SidebarGroupLabel>
                 <SidebarGroupContent>
                   <SidebarMenu>
-                    {account.map((item) => (
+                    {account && account?.map((item) => (
                       <SidebarMenuItem key={item.title}>
                         <SidebarMenuButton asChild>
                           <Link href={item.url} className="flex items-center gap-2">
@@ -72,7 +72,7 @@ const AppSidebar = () => {
                   </SidebarMenu>
                 </SidebarGroupContent>
               </>
-            )}
+            )} */}
   
             {(isEducator || isAdmin) && (
               <>
