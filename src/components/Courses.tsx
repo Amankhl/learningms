@@ -9,11 +9,12 @@ type Course = {
   id: number;
   title: string;
   description: string;
+  videoUrl?: string;
   educatorname: string;
+  imgUrl?: string;
   status: string;
-  imgUrl: string;
+  createdAt: string;
 };
-
 
 const Courses = () => {
   const [courses, setCourses] = useState<Course[]>([]);
