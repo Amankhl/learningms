@@ -37,7 +37,7 @@ const Users = () => {
             <TableRow>
               <TableHead>Name</TableHead>
               <TableHead>Email</TableHead>
-              <TableHead>Courses Enrolled</TableHead>
+              <TableHead>Courses Created</TableHead>
               <TableHead>Actions</TableHead>
               <TableHead>Assign Role</TableHead>
             </TableRow>

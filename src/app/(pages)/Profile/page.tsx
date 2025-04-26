@@ -111,7 +111,7 @@ const Profile = () => {
             </div>
           </div>
 
-          <h3 className="text-xl font-semibold mt-8">Enrolled Courses</h3>
+          <h3 className="text-xl font-semibold mt-8">{me?.role === "EDUCATOR" ? "Courses Created" : "Enrolled Courses"}</h3>
           <ul className="mt-4 space-y-2">
             {courses.length === 0 ? (
               <p className='text-[#595757]'>You haven't enrolled in any course</p>

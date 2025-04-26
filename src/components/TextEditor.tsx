@@ -9,6 +9,7 @@ import OrderedList from '@tiptap/extension-ordered-list'
 import ListItem from '@tiptap/extension-list-item'
 import Paragraph from '@tiptap/extension-paragraph'
 import { Button } from "@/components/ui/button"
+import { useState } from 'react'
 
 export default function TextEditor({
   content,
@@ -17,6 +18,8 @@ export default function TextEditor({
   content: string
   setContent: (val: string) => void
 }) {
+  const [uploading, setUploading] = useState<boolean>(false)
+
   const editor = useEditor({
     extensions: [
       Paragraph,
@@ -66,8 +69,16 @@ export default function TextEditor({
     const file = e.target.files?.[0]
     if (!file || !editor) return
 
-    const imageUrl = await uploadImageToCloudinary(file)
-    editor.chain().focus().setImage({ src: imageUrl }).run()
+    try {
+      setUploading(true)
+      const imageUrl = await uploadImageToCloudinary(file)
+      editor.chain().focus().setImage({ src: imageUrl }).run()
+    } catch (err) {
+      console.error(err)
+      alert('Upload failed!')
+    } finally {
+      setUploading(false)
+    }
   }
 
   if (!editor) return null
@@ -117,15 +128,17 @@ export default function TextEditor({
         >
           Clear
         </Button>
-        {/* <label className="cursor-pointer bg-gray-200 px-3 py-1 rounded text-sm">
-          📷 Insert Image
+        <label className="relative inline-flex items-center justify-center cursor-pointer">
+          <Button size="sm" variant="secondary">
+            {uploading ? 'Uploading...' : '📷 Upload Image'}
+          </Button>
           <input
             type="file"
             accept="image/*"
             onChange={handleImageUpload}
-            className="hidden"
+            className="absolute inset-0 opacity-0 cursor-pointer"
           />
-        </label> */}
+        </label>
       </div>
 
       <EditorContent

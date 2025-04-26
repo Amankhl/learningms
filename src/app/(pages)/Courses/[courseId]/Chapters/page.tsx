@@ -38,7 +38,7 @@ export default function ChaptersPage({ params }: { params: { courseId: string } 
               <h3 className="text-xl font-semibold">Chapter: {chap.title}</h3>
               <p className="border mb-4"></p>
               <div
-                className="prose prose-sm max-w-none text-muted-foreground"
+                className="prose prose-sm max-w-none text-black"
                 dangerouslySetInnerHTML={{ __html: chap.content }}
               />
             </CardContent>
