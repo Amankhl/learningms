@@ -5,12 +5,9 @@ import hero from '../public/hero.jpg'
 import Courses from '@/components/Courses';
 import Link from 'next/link';
 import InfiniteLogoSlider from '@/components/LogoSlider';
-import { useProfile } from '@/context/ProfileContext';
 
 const HomePage = () => {
 
-  const user = useProfile();
-  // console.log(user)
 
   return (
     <div className="w-full">
