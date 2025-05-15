@@ -72,7 +72,7 @@ const Login = () => {
     };
 
     return (
-        <div className='w-[100%] h-[85%] flex justify-center items-center flex-col gap-5'>
+        <div className='w-[100%] h-[100%] flex justify-center items-center flex-col gap-5'>
             <h1 className='font-semibold text-[2rem]'>Login</h1>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 border p-10 w-[30%] h-[46%]">
